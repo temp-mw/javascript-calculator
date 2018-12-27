@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "A calculator web application with nodejs api",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run open",
+    "start-web": "npm start --prefix web",
+    "start-api": "npm start --prefix api",
+    "open": "concurrently \"npm:start-web\" \"npm:start-api\""
   },
   "keywords": [
     "nodejs",
@@ -11,5 +14,8 @@
     "api"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
 }

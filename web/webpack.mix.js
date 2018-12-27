@@ -12,7 +12,7 @@ let mix = require('laravel-mix');
  */
 
 // mix.js('src/app.js', 'public/').sass('src/app.scss', 'dist/');
-mix.js('src/app.js', 'public/');
+mix.js('src/app.js', 'public/').sass('src/app.scss', 'public/');
 
 // mix.browserSync({
 //     proxy: 'localhost:3000',

@@ -14,9 +14,34 @@
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="msapplication-config" content="favicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
-    <script src="app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <h1>Calculator Frontends</h1>
+    <div class="container">
+        <div id="calculator">
+            <div class="display">0</div>
+            <div class="keys">
+                <button class="operator" data-action="add">+</button>
+                <button class="operator" data-action="subtract">-</button>
+                <button class="operator" data-action="multiply">&times;</button>
+                <button class="operator" data-action="divide">÷</button>
+                <button>7</button>
+                <button>8</button>
+                <button>9</button>
+                <button>4</button>
+                <button>5</button>
+                <button>6</button>
+                <button>1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>0</button>
+                <button data-action="decimal">.</button>
+                <button data-action="clear">AC</button>
+                <button class="equal" data-action="calculate">=</button>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
 </body>
 </html>

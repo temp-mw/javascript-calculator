@@ -17,3 +17,20 @@ npm start
 
 ## Code Structure
 Separation of frontend (web) and backend (api)
+
+## Development
+### Frontend - Folder web
+```
+npm run dev
+```
+compiles src/app.js and src/app.scss to the public folder
+
+```
+npm run watch
+```
+starts browsersync on port 3002 (proxying 3000) and listens to changes
+
+```
+npm run prod
+```
+compiles src/app.js and src/app.scss to the public folder for production

@@ -1,13 +1,14 @@
 {
-  "name": "calculator-web",
+  "name": "calculator-web-app",
   "version": "1.0.0",
-  "description": "A calculator web app",
+  "description": "A calculator web application with nodejs api",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "web",
+    "nodejs",
     "calculator",
+    "api"
   ],
   "author": "",
   "license": "MIT"

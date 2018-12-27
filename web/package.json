@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "A calculator web app",
   "scripts": {
-    "start": "http-server -a localhost -p 3000 -o"
+    "start": "http-server -a localhost -p 3000 -o",
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "npm run development -- --watch",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "keywords": [
     "web",
@@ -12,6 +19,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "browser-sync": "^2.26.3",
+    "browser-sync-webpack-plugin": "^2.0.1",
+    "cross-env": "^5.2.0",
+    "http-server": "^0.11.1",
+    "laravel-mix": "^4.0.12",
+    "vue-template-compiler": "^2.5.21"
   }
 }

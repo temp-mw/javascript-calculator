@@ -6,7 +6,10 @@
     "start": "npm run open",
     "start-web": "npm start --prefix web",
     "start-api": "npm start --prefix api",
-    "open": "concurrently \"npm:start-web\" \"npm:start-api\""
+    "open": "concurrently \"npm:start-web\" \"npm:start-api\"",
+    "postinstall": "concurrently \"npm:install-web\" \"npm:install-api\"",
+    "install-web": "cd web && npm install",
+    "install-api": "cd api && npm install"
   },
   "keywords": [
     "nodejs",

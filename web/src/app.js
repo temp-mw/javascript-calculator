@@ -8,11 +8,31 @@ To be performed by nodejs via ajax/json
 const calculate = (n1, operator, n2) => {
     const firstNum = parseFloat(n1);
     const secondNum = parseFloat(n2);
+
+    $.ajax({
+        type: 'POST',
+        xhrFields: {
+            withCredentials: true
+        },
+        //the url where you want to sent the userName and password to
+        url: 'http://localhost:3001',
+        dataType: 'json',
+        // async: false,
+        //json object to sent to the authentication url
+        data: '{"n1": "' + firstNum + '", "n2" : "' + secondNum + '"}',
+        success: function (data) {
+            console.log(data);
+        }
+    });
+
+
     // let's not use eval(firstNum + secondNum)
     if (operator === 'add') return precision(firstNum + secondNum);
     if (operator === 'subtract') return precision(firstNum - secondNum);
     if (operator === 'multiply') return precision(firstNum * secondNum);
     if (operator === 'divide') return precision(firstNum / secondNum);
+
+
 };
 
 const precision = (result) => {

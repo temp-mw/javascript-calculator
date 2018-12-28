@@ -17,7 +17,22 @@ To be performed by nodejs via ajax/json
 
 var calculate = function calculate(n1, operator, n2) {
   var firstNum = parseFloat(n1);
-  var secondNum = parseFloat(n2); // let's not use eval(firstNum + secondNum)
+  var secondNum = parseFloat(n2);
+  $.ajax({
+    type: 'POST',
+    xhrFields: {
+      withCredentials: true
+    },
+    //the url where you want to sent the userName and password to
+    url: 'http://localhost:3001',
+    dataType: 'json',
+    // async: false,
+    //json object to sent to the authentication url
+    data: '{"n1": "' + firstNum + '", "n2" : "' + secondNum + '"}',
+    success: function success(data) {
+      console.log(data);
+    }
+  }); // let's not use eval(firstNum + secondNum)
 
   if (operator === 'add') return precision(firstNum + secondNum);
   if (operator === 'subtract') return precision(firstNum - secondNum);

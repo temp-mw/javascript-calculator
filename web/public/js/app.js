@@ -12,12 +12,25 @@
 
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
 /*
+Define the calculator parts (calulator, display and keys)
+*/
+
+var calculator = $('#calculator');
+var display = $('#calculator .display');
+var keys = $('#calculator .keys');
+var clearButton = keys.find('button[data-action=clear]');
+/*
 To be performed by nodejs via ajax/json
 */
 
 var calculate = function calculate(n1, operator, n2) {
-  var firstNum = parseFloat(n1);
-  var secondNum = parseFloat(n2);
+  // const firstNum = parseFloat(n1);
+  // const secondNum = parseFloat(n2);
+  var request = {
+    n1: n1,
+    n2: n2,
+    operator: operator
+  };
   $.ajax({
     type: 'POST',
     xhrFields: {
@@ -28,31 +41,23 @@ var calculate = function calculate(n1, operator, n2) {
     dataType: 'json',
     // async: false,
     //json object to sent to the authentication url
-    data: '{"n1": "' + firstNum + '", "n2" : "' + secondNum + '"}',
+    data: request,
     success: function success(data) {
-      console.log(data);
+      // return data;
+      display.text(data);
     }
   }); // let's not use eval(firstNum + secondNum)
-
-  if (operator === 'add') return precision(firstNum + secondNum);
-  if (operator === 'subtract') return precision(firstNum - secondNum);
-  if (operator === 'multiply') return precision(firstNum * secondNum);
-  if (operator === 'divide') return precision(firstNum / secondNum);
+  // if (operator === 'add') return precision(firstNum + secondNum);
+  // if (operator === 'subtract') return precision(firstNum - secondNum);
+  // if (operator === 'multiply') return precision(firstNum * secondNum);
+  // if (operator === 'divide') return precision(firstNum / secondNum);
 };
 
 var precision = function precision(result) {
   return Math.round(1e12 * result) / 1e12;
 };
-/*
-Define the calculator parts (calulator, display and keys)
-*/
-
-
-var calculator = $('#calculator');
-var display = $('#calculator .display');
-var keys = $('#calculator .keys');
-var clearButton = keys.find('button[data-action=clear]');
 /* Add the click event listener for all keys */
+
 
 keys.on('click', function (e) {
   if (e.target.matches('button')) {
@@ -142,9 +147,10 @@ keys.on('click', function (e) {
         if (previousKeyType === 'calculate') {
           _firstValue = displayedNum;
           _secondValue = calculator.data('modValue');
-        }
+        } // display.text(calculate(firstValue, operator, secondValue));
 
-        display.text(calculate(_firstValue, _operator, _secondValue));
+
+        calculate(_firstValue, _operator, _secondValue);
       } // Set modValue attribute
 
 

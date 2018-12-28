@@ -3,34 +3,45 @@
 window.$ = window.jQuery = require('jquery');
 
 /*
+Define the calculator parts (calulator, display and keys)
+*/
+const calculator = $('#calculator');
+const display = $('#calculator .display');
+const keys = $('#calculator .keys');
+const clearButton = keys.find('button[data-action=clear]');
+
+/*
 To be performed by nodejs via ajax/json
 */
 const calculate = (n1, operator, n2) => {
-    const firstNum = parseFloat(n1);
-    const secondNum = parseFloat(n2);
+    // const firstNum = parseFloat(n1);
+    // const secondNum = parseFloat(n2);
+
+    const request = {
+        n1: n1,
+        n2: n2,
+        operator: operator
+    };
 
     $.ajax({
         type: 'POST',
         xhrFields: {
             withCredentials: true
         },
-        //the url where you want to sent the userName and password to
         url: 'http://localhost:3001',
         dataType: 'json',
-        // async: false,
-        //json object to sent to the authentication url
-        data: '{"n1": "' + firstNum + '", "n2" : "' + secondNum + '"}',
+        data: request,
         success: function (data) {
-            console.log(data);
+            display.text(data);
         }
     });
 
 
     // let's not use eval(firstNum + secondNum)
-    if (operator === 'add') return precision(firstNum + secondNum);
-    if (operator === 'subtract') return precision(firstNum - secondNum);
-    if (operator === 'multiply') return precision(firstNum * secondNum);
-    if (operator === 'divide') return precision(firstNum / secondNum);
+    // if (operator === 'add') return precision(firstNum + secondNum);
+    // if (operator === 'subtract') return precision(firstNum - secondNum);
+    // if (operator === 'multiply') return precision(firstNum * secondNum);
+    // if (operator === 'divide') return precision(firstNum / secondNum);
 
 
 };
@@ -39,13 +50,7 @@ const precision = (result) => {
     return Math.round(1e12 * result) / 1e12;
 };
 
-/*
-Define the calculator parts (calulator, display and keys)
-*/
-const calculator = $('#calculator');
-const display = $('#calculator .display');
-const keys = $('#calculator .keys');
-const clearButton = keys.find('button[data-action=clear]');
+
 
 
 /* Add the click event listener for all keys */
@@ -149,7 +154,8 @@ keys.on('click', e => {
                     secondValue = calculator.data('modValue');
                 }
 
-                display.text(calculate(firstValue, operator, secondValue));
+                // display.text(calculate(firstValue, operator, secondValue));
+                calculate(firstValue, operator, secondValue);
             }
             // Set modValue attribute
             calculator.data('modValue', secondValue);

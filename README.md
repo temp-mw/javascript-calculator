@@ -24,8 +24,12 @@ npm start
 ```
 
 ## Development
-### Frontend - Folder web
+### Frontend
 
+cd into the directory web
+```
+cd web
+````
 Compile src/app.js and src/app.scss to the public folder
 ```
 npm run dev

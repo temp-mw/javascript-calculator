@@ -14,10 +14,10 @@ let mix = require('laravel-mix');
 // mix.js('src/app.js', 'public/').sass('src/app.scss', 'dist/');
 mix.js('src/app.js', 'public/').sass('src/app.scss', 'public/');
 
-// mix.browserSync({
-//     proxy: 'localhost:3000',
-//     port: 3002
-// });
+mix.browserSync({
+    proxy: 'localhost:3000',
+    port: 3002
+});
 
 // Full API
 // mix.js(src, output);

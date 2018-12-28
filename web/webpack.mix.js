@@ -11,12 +11,24 @@ let mix = require('laravel-mix');
  |
  */
 
+mix.disableNotifications();
+
+mix.setPublicPath('public');
+
 // mix.js('src/app.js', 'public/').sass('src/app.scss', 'dist/');
-mix.js('src/app.js', 'public/').sass('src/app.scss', 'public/');
+mix.js('src/app.js', 'public/js').sass('src/app.scss', 'public/css').extract();
 
 mix.browserSync({
     proxy: 'localhost:3000',
-    port: 3002
+    port: 3002,
+    ui: {
+        port: 3003
+    },
+    // files: [
+    //     'public/app.js',
+    //     // 'dist/js/{*,**/*}.js',
+    //     //'templates/{*,**/*}.html.twig'
+    // ]
 });
 
 // Full API

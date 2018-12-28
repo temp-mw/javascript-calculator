@@ -1,5 +1,7 @@
 'use strict';
 
+window.$ = window.jQuery = require('jquery');
+
 /*
 Define the calculator parts (calulator, display and keys)
 */

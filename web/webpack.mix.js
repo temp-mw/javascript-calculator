@@ -11,7 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.disableNotifications();
+// mix.disableNotifications();
 
 mix.setPublicPath('public');
 

@@ -15,15 +15,17 @@ window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jqu
 Define the calculator parts (calulator, display and keys)
 */
 
-var calculator = document.getElementById('calculator');
-var display = document.querySelector('.display');
-var keys = calculator.querySelector('.keys');
+var calculator = $('#calculator');
+var display = $('#calculator .display');
+var keys = $('#calculator .keys');
 /* Add the click event listener for all keys ie buttons*/
+// keys.addEventListener('click', e => {
 
-keys.addEventListener('click', function (e) {
+keys.on('click', function (e) {
   if (e.target.matches('button')) {
-    var key = e.target;
-    var action = key.dataset.action; // if exists get the data-action attribute from the button
+    var key = $(e.target); // make target a jQuery object
+
+    var action = key.attr('data-action'); // if exists get the data-action attribute from the button
 
     if (!action) {
       console.log('number key!');

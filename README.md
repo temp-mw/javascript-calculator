@@ -23,22 +23,18 @@ Start and open the frontend on localhost:3000. Start the backend on localhost:30
 npm start
 ```
 
-## Code Structure
-Separation of frontend (web) and backend (api)
-
 ## Development
 ### Frontend - Folder web
+
+Compile src/app.js and src/app.scss to the public folder
 ```
 npm run dev
 ```
-compiles src/app.js and src/app.scss to the public folder
-
+Start browsersync on port 3002 (proxying 3000) and listen to changes
 ```
 npm run watch
 ```
-starts browsersync on port 3002 (proxying 3000) and listens to changes
-
+Compile and minify all assets for production
 ```
 npm run prod
 ```
-compiles src/app.js and src/app.scss to the public folder for production

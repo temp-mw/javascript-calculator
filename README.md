@@ -34,7 +34,7 @@ Compile src/app.js and src/app.scss to the public folder
 ```
 npm run dev
 ```
-Start browsersync on port 3002 (proxying 3000) and listen to changes
+Start BrowserSync on localhost:3002 (proxying 3000) and listen to changes
 ```
 npm run watch
 ```
@@ -42,3 +42,25 @@ Compile and minify all assets for production
 ```
 npm run prod
 ```
+
+## Features
+- separation of front-end (web) and back-end (api)
+- basic operations: +, -, *, /
+- advanced functions: pow & square root
+- history of calculations is shown in front-end (non-persistent)
+- uses jQuery
+- basic sass setup
+- uses Laravel-Mix for compilation and minification
+- calculations are performed by the nodejs/experss server through json post requests
+
+
+## Further Options & todos
+### Functionality
+- add more advanced calculations
+- save calculation history in a file on the server with nodejs
+- use Typescript? Maybe server-side?
+- add keyboard usage
+
+### Design
+- implement Bootstrap
+- show tooltips on buttons

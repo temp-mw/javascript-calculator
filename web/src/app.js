@@ -13,7 +13,7 @@ const clearButton = keys.find('button[data-action=clear]');
 /*
 Passes all calculations to the nodejs api via ajax post and processes the result
 */
-const calculate = (n1, operator, n2) => {
+const calculate = (n1, operator, n2, callback) => {
 
     const request = {
         n1: n1,
@@ -21,23 +21,27 @@ const calculate = (n1, operator, n2) => {
         operator: operator
     };
 
-    $.ajax({
+    const result = $.ajax({
         type: 'POST',
         xhrFields: {
             withCredentials: true
         },
         url: 'http://localhost:3001',
+        async: false,
         dataType: 'json',
         data: request,
         success: function (data) {
-            display.text(data);
+            return data;
         }
     });
+    return result;
+
 };
 
 /* Add the click event listener for all keys */
 keys.on('click', e => {
     if (e.target.matches('button')) {
+        console.log('called');
         const key = $(e.target); // make target a jQuery instance
         const action = key.attr('data-action'); // if exists get the data-action attribute from the button
         const keyContent = key.text(); // value of the pressed key
@@ -77,11 +81,45 @@ keys.on('click', e => {
                 previousKeyType !== 'operator' &&
                 previousKeyType !== 'calculate'
             ) {
-                const calcValue = calculate(firstValue, operator, secondValue);
-                display.text(calcValue);
+                calculate(firstValue, operator, secondValue).then(function (data) {
+                    const calcValue = data;
+                    display.text(calcValue);
+                    // Update firstValue to calculated value
+                    calculator.data('firstValue', calcValue);
+                });
+            } else {
+                // If there are no calculations, set displayedNum as the firstValue
+                calculator.data('firstValue', displayedNum);
+            }
 
-                // Update firstValue to calculated value
-                calculator.data('firstValue', calcValue);
+            key.addClass('is-pressed'); // used to style operators
+
+            calculator.data('previousKeyType', 'operator');
+            calculator.data('operator', action);
+        }
+
+        if ( // functions
+            action === 'pow'
+        ) {
+            const firstValue = calculator.data('firstValue');
+            const operator = calculator.data('operator');
+            const secondValue = displayedNum;
+            console.log('called');
+
+            // Note: It's sufficient to check for firstValue and operator because secondValue always exists
+            if (
+                firstValue &&
+                operator &&
+                previousKeyType !== 'operator'
+                // previousKeyType !== 'calculate'
+            ) {
+                console.log('calc called');
+                calculate(firstValue, operator, secondValue).then(function (data) {
+                    const calcValue = data;
+                    display.text(calcValue);
+                    // Update firstValue to calculated value
+                    calculator.data('firstValue', calcValue);
+                });
             } else {
                 // If there are no calculations, set displayedNum as the firstValue
                 calculator.data('firstValue', displayedNum);
@@ -132,9 +170,9 @@ keys.on('click', e => {
                     firstValue = displayedNum;
                     secondValue = calculator.data('modValue');
                 }
-
-                // display.text(calculate(firstValue, operator, secondValue));
-                calculate(firstValue, operator, secondValue);
+                calculate(firstValue, operator, secondValue).then(function (data) {
+                    display.text(data);// v1 is undefined
+                });
             }
             // Set modValue attribute
             calculator.data('modValue', secondValue);

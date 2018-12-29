@@ -20,6 +20,7 @@ var calculator = $('#calculator');
 var display = $('#calculator .display');
 var keys = $('button');
 var clearButton = keys.find('button[data-action=clear]');
+var history = $('#history');
 /*
 Passes all calculations to the nodejs api
 via ajax post and creates a promise
@@ -41,7 +42,8 @@ var calculate = function calculate(n1, operator, n2) {
     dataType: 'json',
     data: request,
     success: function success(data) {
-      return data;
+      console.log(data.result);
+      history.prepend("<li>".concat(data.calc, " = ").concat(data.result, "</li>")); // return data.result;
     }
   });
   return result;
@@ -82,7 +84,7 @@ keys.on('click', function (e) {
 
     if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
       calculate(firstValue, operator, secondValue).then(function (data) {
-        var calcValue = data;
+        var calcValue = data.result;
         display.text(calcValue);
         calculator.data('firstValue', calcValue);
       });
@@ -98,7 +100,7 @@ keys.on('click', function (e) {
 
   if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt') {
     calculate(displayedNum, action).then(function (data) {
-      var calcValue = data;
+      var calcValue = data.result;
       display.text(calcValue);
       calculator.data('firstValue', calcValue);
     });
@@ -116,7 +118,7 @@ keys.on('click', function (e) {
 
     if (_firstValue && _operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
       calculate(_firstValue, _operator, _secondValue).then(function (data) {
-        var calcValue = data;
+        var calcValue = data.result;
         display.text(calcValue);
         calculator.data('firstValue', calcValue);
       });
@@ -173,7 +175,7 @@ keys.on('click', function (e) {
       }
 
       calculate(_firstValue2, _operator2, _secondValue2).then(function (data) {
-        display.text(data); // v1 is undefined
+        display.text(data.result); // v1 is undefined
       });
     } // Set modValue attribute
 

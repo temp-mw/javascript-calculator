@@ -9,6 +9,7 @@ const calculator = $('#calculator');
 const display = $('#calculator .display');
 const keys = $('button');
 const clearButton = keys.find('button[data-action=clear]');
+const history = $('#history');
 
 /*
 Passes all calculations to the nodejs api
@@ -32,7 +33,9 @@ const calculate = (n1, operator, n2) => {
         dataType: 'json',
         data: request,
         success: function (data) {
-            return data;
+            console.log(data.result);
+            history.prepend(`<li>${data.calc} = ${data.result}</li>`);
+            // return data.result;
         }
     });
     return result;
@@ -79,11 +82,12 @@ keys.on('click', e => {
             previousKeyType !== 'operator' &&
             previousKeyType !== 'calculate'
         ) {
-            calculate(firstValue, operator, secondValue).then(function (data) {
-                const calcValue = data;
-                display.text(calcValue);
-                calculator.data('firstValue', calcValue);
-            });
+            calculate(firstValue, operator, secondValue)
+                .then(function (data) {
+                    const calcValue = data.result;
+                    display.text(calcValue);
+                    calculator.data('firstValue', calcValue);
+                });
         } else {
             calculator.data('firstValue', displayedNum);
         }
@@ -100,7 +104,7 @@ keys.on('click', e => {
     ) {
         calculate(displayedNum, action)
             .then((data) => {
-                const calcValue = data;
+                const calcValue = data.result;
                 display.text(calcValue);
                 calculator.data('firstValue', calcValue);
             });
@@ -123,11 +127,12 @@ keys.on('click', e => {
             previousKeyType !== 'operator' &&
             previousKeyType !== 'calculate'
         ) {
-            calculate(firstValue, operator, secondValue).then(function (data) {
-                const calcValue = data;
-                display.text(calcValue);
-                calculator.data('firstValue', calcValue);
-            });
+            calculate(firstValue, operator, secondValue)
+                .then(function (data) {
+                    const calcValue = data.result;
+                    display.text(calcValue);
+                    calculator.data('firstValue', calcValue);
+                });
         } else {
             calculator.data('firstValue', displayedNum);
         }
@@ -175,9 +180,10 @@ keys.on('click', e => {
                 firstValue = displayedNum;
                 secondValue = calculator.data('modValue');
             }
-            calculate(firstValue, operator, secondValue).then(function (data) {
-                display.text(data);// v1 is undefined
-            });
+            calculate(firstValue, operator, secondValue)
+                .then(function (data) {
+                    display.text(data.result);// v1 is undefined
+                });
         }
         // Set modValue attribute
         calculator.data('modValue', secondValue);

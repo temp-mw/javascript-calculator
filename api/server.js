@@ -19,18 +19,18 @@ const calculate = (n1, operator, n2 = '') => {
 
     // let's not use eval(firstNum + secondNum)
     // operators
-    if (operator === 'add') return precision(firstNum + secondNum);
-    if (operator === 'subtract') return precision(firstNum - secondNum);
-    if (operator === 'multiply') return precision(firstNum * secondNum);
-    if (operator === 'divide') return precision(firstNum / secondNum);
-    // functions
-    if (operator === 'pow') return precision(Math.pow(firstNum, 2));
-    if (operator === 'pow3') return precision(Math.pow(firstNum, 3));
-    if (operator === 'powy') return precision(Math.pow(firstNum, secondNum));
-
-    if (operator === 'sqrt') return precision(Math.sqrt(firstNum));
-    if (operator === 'cbrt') return precision(Math.cbrt(firstNum));
-    if (operator === 'nthrt') return precision(Math.pow(firstNum, 1 / secondNum));
+    if (operator === 'add') return { result: precision(firstNum + secondNum), calc: `${firstNum} + ${secondNum}` };
+    if (operator === 'subtract') return { result: precision(firstNum - secondNum), calc: `${firstNum} - ${secondNum}` };
+    if (operator === 'multiply') return { result: precision(firstNum * secondNum), calc: `${firstNum} * ${secondNum}` };
+    if (operator === 'divide') return { result: precision(firstNum / secondNum), calc: `${firstNum} / ${secondNum}` };
+    // power of
+    if (operator === 'pow') return { result: precision(Math.pow(firstNum, 2)), calc: `Math.pow(${firstNum},2)` };
+    if (operator === 'pow3') return { result: precision(Math.pow(firstNum, 3)), calc: `Math.pow(${firstNum},3)` };
+    if (operator === 'powy') return { result: precision(Math.pow(firstNum, secondNum)), calc: `Math.pow(${firstNum},${secondNum})` };
+    // square root
+    if (operator === 'sqrt') return { result: precision(Math.sqrt(firstNum)), calc: `Math.sqrt(${firstNum})` };
+    if (operator === 'cbrt') return { result: precision(Math.cbrt(firstNum)), calc: `Math.cbrt(${firstNum})` };
+    if (operator === 'nthrt') return { result: precision(Math.pow(firstNum, 1 / secondNum)), calc: `Math.pow(${firstNum}, 1 / ${secondNum})` };
 
 };
 

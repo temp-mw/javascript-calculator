@@ -42,8 +42,7 @@ var calculate = function calculate(n1, operator, n2) {
     dataType: 'json',
     data: request,
     success: function success(data) {
-      console.log(data.result);
-      history.prepend("<li>".concat(data.calc, " = ").concat(data.result, "</li>")); // return data.result;
+      history.prepend("<li>".concat(data.calc, " = ").concat(data.result, "</li>"));
     }
   });
   return result;
@@ -77,7 +76,7 @@ keys.on('click', function (e) {
   }
 
   if ( // operators
-  action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide') {
+  action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide' || action === 'powy' || action === 'nthrt') {
     var firstValue = calculator.data('firstValue');
     var operator = calculator.data('operator');
     var secondValue = displayedNum; // Note: It's sufficient to check for firstValue and operator because secondValue always exists
@@ -108,32 +107,7 @@ keys.on('click', function (e) {
     calculator.data('operator', action);
   }
 
-  if ( // operators
-  action === 'powy' || action === 'nthrt') {
-    var _firstValue = calculator.data('firstValue');
-
-    var _operator = calculator.data('operator');
-
-    var _secondValue = displayedNum;
-
-    if (_firstValue && _operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
-      calculate(_firstValue, _operator, _secondValue).then(function (data) {
-        var calcValue = data.result;
-        display.text(calcValue);
-        calculator.data('firstValue', calcValue);
-      });
-    } else {
-      calculator.data('firstValue', displayedNum);
-    }
-
-    key.addClass('is-pressed'); // used to style operators
-
-    calculator.data('previousKeyType', 'operator');
-    calculator.data('operator', action);
-  }
-
   if (action === 'decimal') {
-    // Do nothing if string has a dot
     if (!displayedNum.includes('.')) {
       display.text(displayedNum + '.');
     } else if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
@@ -162,25 +136,25 @@ keys.on('click', function (e) {
   }
 
   if (action === 'calculate') {
-    var _firstValue2 = calculator.data('firstValue');
+    var _firstValue = calculator.data('firstValue');
 
-    var _operator2 = calculator.data('operator');
+    var _operator = calculator.data('operator');
 
-    var _secondValue2 = displayedNum;
+    var _secondValue = displayedNum;
 
-    if (_firstValue2) {
+    if (_firstValue) {
       if (previousKeyType === 'calculate') {
-        _firstValue2 = displayedNum;
-        _secondValue2 = calculator.data('modValue');
+        _firstValue = displayedNum;
+        _secondValue = calculator.data('modValue');
       }
 
-      calculate(_firstValue2, _operator2, _secondValue2).then(function (data) {
+      calculate(_firstValue, _operator, _secondValue).then(function (data) {
         display.text(data.result); // v1 is undefined
       });
     } // Set modValue attribute
 
 
-    calculator.data('modValue', _secondValue2);
+    calculator.data('modValue', _secondValue);
     calculator.data('previousKeyType', 'calculate');
   }
 

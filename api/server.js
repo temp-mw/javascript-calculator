@@ -4,8 +4,7 @@ const port = 3001;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Add headers
-app.use(function (req, res, next) {
+app.use(function (req, res, next) { // add headers for CORS
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
@@ -17,7 +16,6 @@ const calculate = (n1, operator, n2 = '') => {
     const firstNum = parseFloat(n1);
     const secondNum = parseFloat(n2);
 
-    // let's not use eval(firstNum + secondNum)
     // operators
     if (operator === 'add') return { result: precision(firstNum + secondNum), calc: `${firstNum} + ${secondNum}` };
     if (operator === 'subtract') return { result: precision(firstNum - secondNum), calc: `${firstNum} - ${secondNum}` };
@@ -31,16 +29,13 @@ const calculate = (n1, operator, n2 = '') => {
     if (operator === 'sqrt') return { result: precision(Math.sqrt(firstNum)), calc: `Math.sqrt(${firstNum})` };
     if (operator === 'cbrt') return { result: precision(Math.cbrt(firstNum)), calc: `Math.cbrt(${firstNum})` };
     if (operator === 'nthrt') return { result: precision(Math.pow(firstNum, 1 / secondNum)), calc: `Math.pow(${firstNum}, 1 / ${secondNum})` };
-
 };
 
 const precision = (result) => {
     return Math.round(1e12 * result) / 1e12;
 };
 
-app.post('/', function (req, res) {
-    return res.json(calculate(req.body.n1, req.body.operator, req.body.n2));
-});
+app.post('/', (req, res) => res.json(calculate(req.body.n1, req.body.operator, req.body.n2)));
 
 app.get('/', (req, res) => res.send('<h1>Calculator Backend<h2>'));
 

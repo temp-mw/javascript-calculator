@@ -33,9 +33,7 @@ const calculate = (n1, operator, n2) => {
         dataType: 'json',
         data: request,
         success: function (data) {
-            console.log(data.result);
             history.prepend(`<li>${data.calc} = ${data.result}</li>`);
-            // return data.result;
         }
     });
     return result;
@@ -69,7 +67,9 @@ keys.on('click', e => {
         action === 'add' ||
         action === 'subtract' ||
         action === 'multiply' ||
-        action === 'divide'
+        action === 'divide' ||
+        action === 'powy' ||
+        action === 'nthrt'
     ) {
         const firstValue = calculator.data('firstValue');
         const operator = calculator.data('operator');
@@ -113,36 +113,7 @@ keys.on('click', e => {
         calculator.data('operator', action);
     }
 
-    if ( // operators
-        action === 'powy' ||
-        action === 'nthrt'
-    ) {
-        const firstValue = calculator.data('firstValue');
-        const operator = calculator.data('operator');
-        const secondValue = displayedNum;
-
-        if (
-            firstValue &&
-            operator &&
-            previousKeyType !== 'operator' &&
-            previousKeyType !== 'calculate'
-        ) {
-            calculate(firstValue, operator, secondValue)
-                .then(function (data) {
-                    const calcValue = data.result;
-                    display.text(calcValue);
-                    calculator.data('firstValue', calcValue);
-                });
-        } else {
-            calculator.data('firstValue', displayedNum);
-        }
-        key.addClass('is-pressed'); // used to style operators
-        calculator.data('previousKeyType', 'operator');
-        calculator.data('operator', action);
-    }
-
     if (action === 'decimal') {
-        // Do nothing if string has a dot
         if (!displayedNum.includes('.')) {
             display.text(displayedNum + '.');
         } else if (

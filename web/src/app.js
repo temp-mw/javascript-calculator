@@ -8,7 +8,7 @@ Define all calculator parts for reference
 const calculator = $('#calculator');
 const display = $('#calculator .display');
 const keys = $('button');
-const clearButton = keys.find('button[data-action=clear]');
+const clearButton = $('button[data-action=clear]');
 const history = $('#history');
 
 /*

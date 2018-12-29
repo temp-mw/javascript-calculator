@@ -19,7 +19,7 @@ Define all calculator parts for reference
 var calculator = $('#calculator');
 var display = $('#calculator .display');
 var keys = $('button');
-var clearButton = keys.find('button[data-action=clear]');
+var clearButton = $('button[data-action=clear]');
 var history = $('#history');
 /*
 Passes all calculations to the nodejs api

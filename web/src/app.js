@@ -1,9 +1,9 @@
 'use strict';
 
-window.$ = window.jQuery = require('jquery');
+window.$ = window.jQuery = require('jquery'); // add jquery
 
 /*
-Define the calculator parts (calulator, display and keys)
+Define all calculator parts for reference
 */
 const calculator = $('#calculator');
 const display = $('#calculator .display');
@@ -11,11 +11,9 @@ const keys = $('#calculator .keys');
 const clearButton = keys.find('button[data-action=clear]');
 
 /*
-To be performed by nodejs via ajax/json
+Passes all calculations to the nodejs api via ajax post and processes the result
 */
 const calculate = (n1, operator, n2) => {
-    // const firstNum = parseFloat(n1);
-    // const secondNum = parseFloat(n2);
 
     const request = {
         n1: n1,
@@ -35,28 +33,12 @@ const calculate = (n1, operator, n2) => {
             display.text(data);
         }
     });
-
-
-    // let's not use eval(firstNum + secondNum)
-    // if (operator === 'add') return precision(firstNum + secondNum);
-    // if (operator === 'subtract') return precision(firstNum - secondNum);
-    // if (operator === 'multiply') return precision(firstNum * secondNum);
-    // if (operator === 'divide') return precision(firstNum / secondNum);
-
-
 };
-
-const precision = (result) => {
-    return Math.round(1e12 * result) / 1e12;
-};
-
-
-
 
 /* Add the click event listener for all keys */
 keys.on('click', e => {
     if (e.target.matches('button')) {
-        const key = $(e.target); // make target a jQuery object
+        const key = $(e.target); // make target a jQuery instance
         const action = key.attr('data-action'); // if exists get the data-action attribute from the button
         const keyContent = key.text(); // value of the pressed key
         const displayedNum = display.text(); // value of the display
@@ -121,7 +103,6 @@ keys.on('click', e => {
             ) {
                 display.text('0.');
             }
-
             calculator.data('previousKeyType', 'decimal');
         }
 
@@ -138,7 +119,6 @@ keys.on('click', e => {
                 calculator.data('operator', '');
                 calculator.data('previousKeyType', '');
             }
-
             display.text(0);
             calculator.data('previousKeyType', 'clear');
         }
@@ -147,7 +127,6 @@ keys.on('click', e => {
             let firstValue = calculator.data('firstValue');
             const operator = calculator.data('operator');
             let secondValue = displayedNum;
-
             if (firstValue) {
                 if (previousKeyType === 'calculate') {
                     firstValue = displayedNum;

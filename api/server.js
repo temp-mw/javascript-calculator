@@ -8,15 +8,34 @@ app.use(express.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    // Request methods you wish to allow
+    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    // Request headers you wish to allow
+    // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
     next();
+
 });
 
-app.post('/', function (req, res) {
-    // let r = JSON.parse(req.body);
-    console.log(req.body.n1);
-    let result = 9;
+const calculate = (n1, operator, n2) => {
+    const firstNum = parseFloat(n1);
+    const secondNum = parseFloat(n2);
 
-    return res.json(result);
+    // let's not use eval(firstNum + secondNum)
+    if (operator === 'add') return precision(firstNum + secondNum);
+    if (operator === 'subtract') return precision(firstNum - secondNum);
+    if (operator === 'multiply') return precision(firstNum * secondNum);
+    if (operator === 'divide') return precision(firstNum / secondNum);
+};
+
+const precision = (result) => {
+    return Math.round(1e12 * result) / 1e12;
+};
+
+app.post('/', function (req, res) {
+    return res.json(calculate(req.body.n1, req.body.operator, req.body.n2));
 });
 
 app.get('/', (req, res) => res.send('<h1>Calculator Backend<h2>'))

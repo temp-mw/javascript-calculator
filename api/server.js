@@ -7,7 +7,7 @@ app.use(express.urlencoded({ extended: true }));
 // Add headers
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
     // Request methods you wish to allow
     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     // Request headers you wish to allow
@@ -38,6 +38,6 @@ app.post('/', function (req, res) {
     return res.json(calculate(req.body.n1, req.body.operator, req.body.n2));
 });
 
-app.get('/', (req, res) => res.send('<h1>Calculator Backend<h2>'))
+app.get('/', (req, res) => res.send('<h1>Calculator Backend<h2>'));
 
-app.listen(port, () => console.log(`Calc app listening on port ${port}!`))
+app.listen(port, () => console.log(`Calc app listening on port ${port}!`));

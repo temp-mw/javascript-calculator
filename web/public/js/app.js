@@ -63,7 +63,7 @@ keys.on('click', function (e) {
   var previousKeyType = calculator.data('previousKeyType'); // memorize the previous key type
   // Remove .is-pressed class from all keys
 
-  keys.find('button').removeClass('is-pressed');
+  keys.removeClass('is-pressed');
 
   if (!action) {
     // number keys

@@ -7,13 +7,13 @@ Define all calculator parts for reference
 */
 const calculator = $('#calculator');
 const display = $('#calculator .display');
-const keys = $('#calculator .keys');
+const keys = $('button');
 const clearButton = keys.find('button[data-action=clear]');
 
 /*
 Passes all calculations to the nodejs api via ajax post and processes the result
 */
-const calculate = (n1, operator, n2, callback) => {
+const calculate = (n1, operator, n2) => {
 
     const request = {
         n1: n1,
@@ -40,7 +40,7 @@ const calculate = (n1, operator, n2, callback) => {
 
 /* Add the click event listener for all keys */
 keys.on('click', e => {
-    if (e.target.matches('button')) {
+    // if (e.target.matches('button')) {
         console.log('called');
         const key = $(e.target); // make target a jQuery instance
         const action = key.attr('data-action'); // if exists get the data-action attribute from the button
@@ -183,5 +183,5 @@ keys.on('click', e => {
             clearButton.text('CE');
         }
 
-    }
+    //}
 });

@@ -21,7 +21,8 @@ var display = $('#calculator .display');
 var keys = $('button');
 var clearButton = keys.find('button[data-action=clear]');
 /*
-Passes all calculations to the nodejs api via ajax post and processes the result
+Passes all calculations to the nodejs api
+via ajax post and creates a promise
 */
 
 var calculate = function calculate(n1, operator, n2) {
@@ -45,12 +46,10 @@ var calculate = function calculate(n1, operator, n2) {
   });
   return result;
 };
-/* Add the click event listener for all keys */
+/* Add the click event listener for all buttons */
 
 
 keys.on('click', function (e) {
-  // if (e.target.matches('button')) {
-  console.log('called');
   var key = $(e.target); // make target a jQuery instance
 
   var action = key.attr('data-action'); // if exists get the data-action attribute from the button
@@ -84,12 +83,10 @@ keys.on('click', function (e) {
     if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
       calculate(firstValue, operator, secondValue).then(function (data) {
         var calcValue = data;
-        display.text(calcValue); // Update firstValue to calculated value
-
+        display.text(calcValue);
         calculator.data('firstValue', calcValue);
       });
     } else {
-      // If there are no calculations, set displayedNum as the firstValue
       calculator.data('firstValue', displayedNum);
     }
 
@@ -99,26 +96,31 @@ keys.on('click', function (e) {
     calculator.data('operator', action);
   }
 
-  if ( // functions
-  action === 'pow') {
+  if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt') {
+    calculate(displayedNum, action).then(function (data) {
+      var calcValue = data;
+      display.text(calcValue);
+      calculator.data('firstValue', calcValue);
+    });
+    calculator.data('previousKeyType', 'operator');
+    calculator.data('operator', action);
+  }
+
+  if ( // operators
+  action === 'powy' || action === 'nthrt') {
     var _firstValue = calculator.data('firstValue');
 
     var _operator = calculator.data('operator');
 
     var _secondValue = displayedNum;
-    console.log('called'); // Note: It's sufficient to check for firstValue and operator because secondValue always exists
 
-    if (_firstValue && _operator && previousKeyType !== 'operator' // previousKeyType !== 'calculate'
-    ) {
-        console.log('calc called');
-        calculate(_firstValue, _operator, _secondValue).then(function (data) {
-          var calcValue = data;
-          display.text(calcValue); // Update firstValue to calculated value
-
-          calculator.data('firstValue', calcValue);
-        });
-      } else {
-      // If there are no calculations, set displayedNum as the firstValue
+    if (_firstValue && _operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
+      calculate(_firstValue, _operator, _secondValue).then(function (data) {
+        var calcValue = data;
+        display.text(calcValue);
+        calculator.data('firstValue', calcValue);
+      });
+    } else {
       calculator.data('firstValue', displayedNum);
     }
 
@@ -182,8 +184,7 @@ keys.on('click', function (e) {
 
   if (action !== 'clear') {
     clearButton.text('CE');
-  } //}
-
+  }
 });
 
 /***/ }),

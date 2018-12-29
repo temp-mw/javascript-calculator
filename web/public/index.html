@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
+
 <body>
     <div class="container">
         <div id="calculator">
@@ -39,7 +41,15 @@
                 <button data-action="decimal">.</button>
                 <button data-action="clear">AC</button>
                 <button class="equal" data-action="calculate">=</button>
-                    <button class="operator" data-action="pow">x<sup>2</sup></button>
+            </div>
+            <div style="color: white; background: #000; padding: 5px">adv</div>
+            <div class="keys">
+                <button class="operator" data-action="pow">x<sup>2</sup></button>
+                <button class="operator" data-action="pow3">x<sup>3</sup></button>
+                <button class="operator" data-action="powy">x<sup>y</sup></button>
+                <button class="operator" data-action="sqrt">&#8730;</button>
+                <button class="operator" data-action="cbrt">&#8731;</button>
+                <button class="operator" data-action="nthrt">&#8730;y</button>
             </div>
         </div>
     </div>
@@ -47,4 +57,5 @@
     <script src="/js/vendor.js"></script>
     <script src="/js/app.js"></script>
 </body>
+
 </html>

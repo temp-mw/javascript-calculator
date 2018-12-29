@@ -6,28 +6,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Add headers
 app.use(function (req, res, next) {
-    // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-    // Request methods you wish to allow
     // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // Request headers you wish to allow
     // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    // Set to true if you need the website to include cookies in the requests sent
-    // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
-
 });
 
-const calculate = (n1, operator, n2) => {
+const calculate = (n1, operator, n2 = '') => {
     const firstNum = parseFloat(n1);
     const secondNum = parseFloat(n2);
 
     // let's not use eval(firstNum + secondNum)
+    // operators
     if (operator === 'add') return precision(firstNum + secondNum);
     if (operator === 'subtract') return precision(firstNum - secondNum);
     if (operator === 'multiply') return precision(firstNum * secondNum);
     if (operator === 'divide') return precision(firstNum / secondNum);
+    // functions
+    if (operator === 'pow') return precision(Math.pow(firstNum, 2));
+    if (operator === 'pow3') return precision(Math.pow(firstNum, 3));
+    if (operator === 'powy') return precision(Math.pow(firstNum, secondNum));
+
+    if (operator === 'sqrt') return precision(Math.sqrt(firstNum));
+    if (operator === 'cbrt') return precision(Math.cbrt(firstNum));
+    if (operator === 'nthrt') return precision(Math.pow(firstNum, 1 / secondNum));
+
 };
 
 const precision = (result) => {

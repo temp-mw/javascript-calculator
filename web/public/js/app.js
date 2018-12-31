@@ -47,6 +47,15 @@ var calculate = function calculate(n1, operator, n2) {
   });
   return result;
 };
+
+var createResultString = function createResultString(value) {
+  if (value === null) {
+    display.text('NaN');
+    return;
+  }
+
+  display.text(value);
+};
 /* Add the click event listener for all buttons */
 
 
@@ -67,9 +76,9 @@ keys.on('click', function (e) {
   if (!action) {
     // number keys
     if (displayedNum === '0' || previousKeyType === 'operator' || previousKeyType === 'calculate') {
-      display.text(keyContent);
+      createResultString(keyContent);
     } else {
-      display.text(displayedNum + keyContent);
+      createResultString(displayedNum + keyContent);
     }
 
     calculator.data('previousKeyType', 'number');
@@ -84,7 +93,7 @@ keys.on('click', function (e) {
     if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
       calculate(firstValue, operator, secondValue).then(function (data) {
         var calcValue = data.result;
-        display.text(calcValue);
+        createResultString(calcValue);
         calculator.data('firstValue', calcValue);
       });
     } else {
@@ -100,7 +109,7 @@ keys.on('click', function (e) {
   if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt') {
     calculate(displayedNum, action).then(function (data) {
       var calcValue = data.result;
-      display.text(calcValue);
+      createResultString(calcValue);
       calculator.data('firstValue', calcValue);
     });
     calculator.data('previousKeyType', 'operator');
@@ -109,9 +118,9 @@ keys.on('click', function (e) {
 
   if (action === 'decimal') {
     if (!displayedNum.includes('.')) {
-      display.text(displayedNum + '.');
+      createResultString(displayedNum + '.');
     } else if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
-      display.text('0.');
+      createResultString('0.');
     }
 
     calculator.data('previousKeyType', 'decimal');
@@ -131,7 +140,7 @@ keys.on('click', function (e) {
       calculator.data('previousKeyType', '');
     }
 
-    display.text(0);
+    createResultString(0);
     calculator.data('previousKeyType', 'clear');
   }
 
@@ -149,7 +158,7 @@ keys.on('click', function (e) {
       }
 
       calculate(_firstValue, _operator, _secondValue).then(function (data) {
-        display.text(data.result); // v1 is undefined
+        createResultString(data.result); // v1 is undefined
       });
     } // Set modValue attribute
 

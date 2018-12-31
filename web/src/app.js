@@ -39,6 +39,14 @@ const calculate = (n1, operator, n2) => {
     return result;
 };
 
+const createResultString = (value) => {
+    if(value === null) {
+        display.text('NaN');
+        return;
+    }
+    display.text(value);
+};
+
 /* Add the click event listener for all buttons */
 keys.on('click', e => {
     const key = $(e.target); // make target a jQuery instance
@@ -56,9 +64,9 @@ keys.on('click', e => {
             previousKeyType === 'operator' ||
             previousKeyType === 'calculate'
         ) {
-            display.text(keyContent);
+            createResultString(keyContent);
         } else {
-            display.text(displayedNum + keyContent);
+            createResultString(displayedNum + keyContent);
         }
         calculator.data('previousKeyType', 'number');
     }
@@ -85,7 +93,7 @@ keys.on('click', e => {
             calculate(firstValue, operator, secondValue)
                 .then(function (data) {
                     const calcValue = data.result;
-                    display.text(calcValue);
+                    createResultString(calcValue);
                     calculator.data('firstValue', calcValue);
                 });
         } else {
@@ -105,7 +113,7 @@ keys.on('click', e => {
         calculate(displayedNum, action)
             .then((data) => {
                 const calcValue = data.result;
-                display.text(calcValue);
+                createResultString(calcValue);
                 calculator.data('firstValue', calcValue);
             });
 
@@ -115,12 +123,12 @@ keys.on('click', e => {
 
     if (action === 'decimal') {
         if (!displayedNum.includes('.')) {
-            display.text(displayedNum + '.');
+            createResultString(displayedNum + '.');
         } else if (
             previousKeyType === 'operator' ||
             previousKeyType === 'calculate'
         ) {
-            display.text('0.');
+            createResultString('0.');
         }
         calculator.data('previousKeyType', 'decimal');
     }
@@ -138,7 +146,7 @@ keys.on('click', e => {
             calculator.data('operator', '');
             calculator.data('previousKeyType', '');
         }
-        display.text(0);
+        createResultString(0);
         calculator.data('previousKeyType', 'clear');
     }
 
@@ -153,7 +161,7 @@ keys.on('click', e => {
             }
             calculate(firstValue, operator, secondValue)
                 .then(function (data) {
-                    display.text(data.result);// v1 is undefined
+                    createResultString(data.result);// v1 is undefined
                 });
         }
         // Set modValue attribute

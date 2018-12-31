@@ -52,6 +52,7 @@ npm run prod
 - basic sass setup
 - uses Laravel-Mix for compilation and minification
 - calculations are performed by the nodejs/experss server through json post requests
+- Keyboard support (add tooltip to buttons!)
 
 
 ## Further Options & todos
@@ -59,7 +60,6 @@ npm run prod
 - add more advanced calculations
 - save calculation history in a file on the server with nodejs
 - use Typescript? Maybe server-side?
-- add keyboard usage
 
 ### Design
 - implement Bootstrap

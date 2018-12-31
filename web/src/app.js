@@ -39,6 +39,7 @@ const calculate = (n1, operator, n2) => {
     return result;
 };
 
+/* Outputs the result into the display */
 const createResultString = (value) => {
     if(value === null) {
         display.text('NaN');
@@ -173,3 +174,34 @@ keys.on('click', e => {
         clearButton.text('CE');
     }
 });
+
+/* Listen for Keyboard events */
+$(document).on('keyup', e => {
+    const pressedKey = $(`button[data-key='${getPressedKey(e.keyCode, e.shiftKey)}']`);
+    if (!pressedKey) return;
+    pressedKey.click();
+});
+
+const getPressedKey = function (keyCode, shiftKey) {
+    const isShift = shiftKey ? true : false;
+
+    if (keyCode == 48 || keyCode == 96) { return 96; } // 0
+    if (keyCode == 49 || keyCode == 97) { return 97; } // 1
+    if (keyCode == 50 || keyCode == 98) { return 98; } // 2
+    if (keyCode == 51 || keyCode == 99) { return 99; } // 3
+    if (keyCode == 52 || keyCode == 100) { return 100; } // 4
+    if (keyCode == 53 || keyCode == 101) { return 101; } // 5
+    if (keyCode == 54 || keyCode == 102) { return 102; } // 6
+    if ((isShift && keyCode == 55) || keyCode == 191 || keyCode == 111) { return 111; } // / devide
+    if (keyCode == 55 || keyCode == 103) { return 103; } // 7
+    if ((!isShift && keyCode == 56) || keyCode == 104) { return 104; } // 8
+    if (keyCode == 57 || keyCode == 105) { return 105; } // 9
+    if ((isShift && keyCode == 56 || keyCode == 221) || keyCode == 106) { return 106; } // * multiply
+    if (keyCode == 187 || keyCode == 107) { return 107; } // + add
+    if (keyCode == 189 || keyCode == 109) { return 109; } // - subtract
+    if (keyCode == 190 || keyCode == 110) { return 110; } // .
+    if (keyCode == 46 || keyCode == 8 || keyCode == 12) { return 8; } // delete key clear
+    if ((isShift && keyCode == 48) || keyCode == 13) { return 13; } // return key  =
+
+    return false;
+};

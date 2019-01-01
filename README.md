@@ -48,6 +48,7 @@ npm run prod
 - basic operations: +, -, *, /
 - advanced functions: pow & square root
 - history of calculations is shown in front-end (non-persistent)
+- history of calculations is saved on the server side under api/calculations.txt
 - uses jQuery
 - basic sass setup
 - uses Laravel-Mix for compilation and minification

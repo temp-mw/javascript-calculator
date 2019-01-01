@@ -49,21 +49,11 @@ const calculate = (n1, operator, n2 = 0, callback) => {
 
 };
 
-
-
 function nodeActions(data) {
-    // const file = fs.readFileSync('calculations.txt');
-    // const fd = fs.openSync('calculations.txt', 'w+');
-    // const insert = new Buffer(`${data.calc} = ${data.result}\n`);
-    // fs.writeSync(fd, insert, 0, insert.length, 0);
-    // fs.writeSync(fd, file, 0, file.length, insert.length);
-    // fs.close(fd, (err) => {
-    //     if (err) throw err;
-    // });
-    // fs.appendFile('calculations.txt', `${data.calc} = ${data.result}\n`, function (err) {
-    //     if (err) throw err;
-    //     console.log('Saved!');
-    // });
+    fs.appendFile('calculations.txt', `${data.calc} = ${data.result}\n`, function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    });
     return data;
 }
 

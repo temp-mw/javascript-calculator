@@ -31,5 +31,10 @@
   },
   "dependencies": {
     "jquery": "^3.3.1"
+  },
+  "main": "webpack.mix.js",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.web.fh-kufstein.ac.at:gunharth/calculator.git"
   }
 }

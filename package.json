@@ -20,5 +20,11 @@
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^4.1.0"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.web.fh-kufstein.ac.at:gunharth/calculator.git"
   }
 }

@@ -52,14 +52,14 @@ npm run prod
 - uses jQuery
 - basic sass setup
 - uses Laravel-Mix for compilation and minification
-- calculations are performed by the nodejs/experss server through json post requests
+- calculations are performed by the nodejs/express server through json post requests
 - Keyboard support (add tooltip to buttons!)
+- removed native Math functions and uses decimal.js (out of curiosity :-)
 
 
 ## Further Options & todos
 ### Functionality
 - add more advanced calculations
-- save calculation history in a file on the server with nodejs
 - use Typescript? Maybe server-side?
 
 ### Design

@@ -10,6 +10,7 @@ const display = $('#calculator .display');
 const keys = $('button');
 const clearButton = $('button[data-action=clear]');
 const history = $('#history');
+const debug = true;
 
 /*
 Passes all calculations to the nodejs api
@@ -29,7 +30,7 @@ const calculate = (n1, operator, n2) => {
             withCredentials: true
         },
         url: 'http://localhost:3001',
-        async: false,
+        // async: false,
         dataType: 'json',
         data: request,
         success: function (data) {
@@ -41,7 +42,7 @@ const calculate = (n1, operator, n2) => {
 
 /* Outputs the result into the display */
 const createResultString = (value) => {
-    if(value === null) {
+    if (value === null) {
         display.text('NaN');
         return;
     }
@@ -173,6 +174,15 @@ keys.on('click', e => {
     if (action !== 'clear') {
         clearButton.text('CE');
     }
+
+    if (debug) {
+        console.log(`
+            key = ${key}
+            keyContent = ${keyContent}
+            displayedNum = ${displayedNum}
+            previousKeyType = ${previousKeyType}
+        `);
+    };
 });
 
 /* Listen for Keyboard events */

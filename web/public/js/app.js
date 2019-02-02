@@ -21,6 +21,7 @@ var display = $('#calculator .display');
 var keys = $('button');
 var clearButton = $('button[data-action=clear]');
 var history = $('#history');
+var debug = true;
 /*
 Passes all calculations to the nodejs api
 via ajax post and creates a promise
@@ -38,7 +39,7 @@ var calculate = function calculate(n1, operator, n2) {
       withCredentials: true
     },
     url: 'http://localhost:3001',
-    async: false,
+    // async: false,
     dataType: 'json',
     data: request,
     success: function success(data) {
@@ -172,6 +173,12 @@ keys.on('click', function (e) {
   if (action !== 'clear') {
     clearButton.text('CE');
   }
+
+  if (debug) {
+    console.log("\n            key = ".concat(key, "\n            keyContent = ").concat(keyContent, "\n            displayedNum = ").concat(displayedNum, "\n            previousKeyType = ").concat(previousKeyType, "\n        "));
+  }
+
+  ;
 });
 /* Listen for Keyboard events */
 

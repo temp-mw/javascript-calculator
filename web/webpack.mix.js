@@ -17,13 +17,16 @@ mix.setPublicPath('public');
 
 // mix.js('src/app.js', 'public/').sass('src/app.scss', 'dist/');
 mix.js('src/app.js', 'public/js').sass('src/app.scss', 'public/css').extract();
-
+mix.copy('src/index.html', 'public/index.html');
 mix.browserSync({
     proxy: 'localhost:3000',
     port: 3002,
     ui: {
         port: 3003
     },
+    files: [
+        'src/index.html'
+    ]
     // files: [
     //     'public/app.js',
     //     // 'dist/js/{*,**/*}.js',

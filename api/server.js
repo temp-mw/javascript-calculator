@@ -50,6 +50,6 @@ function nodeActions(data) {
 
 app.post('/', (req, res) => res.json(calculate(req.body.n1, req.body.operator, req.body.n2, nodeActions)));
 
-app.get('/', (req, res) => res.send('<h1>Calculator Backend<h2>'));
+app.get('/', (req, res) => res.send('<h1>Calculator Backend - Please make sure to use a post request<h2>'));
 
 app.listen(port, () => console.log(`Calc app listening on port ${port}!`));

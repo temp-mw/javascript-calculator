@@ -82,3 +82,13 @@ body {
   overflow: auto;
 }
 
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+body.dark {
+  background-color: #000;
+  color: #fff;
+}
+

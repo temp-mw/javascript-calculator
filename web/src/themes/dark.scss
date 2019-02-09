@@ -1,0 +1,7 @@
+$primary: #000;
+$secondary: #fff;
+
+body.dark {
+    background-color: $primary;
+    color: $secondary;
+}

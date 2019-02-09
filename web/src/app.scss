@@ -70,10 +70,10 @@ body {
 }
 
 .equal {
-    background-image: linear-gradient(to bottom, #F99C2A, #ff7033);
-    // grid-column: -2;
+    background-image: linear-gradient(to bottom, #F99C2A, #ff7033); // grid-column: -2;
     // grid-row: 2 / span 4;
 }
+
 .zero {
     // grid-row: 2 / span 4;
     grid-column: 1 / span 2;
@@ -83,3 +83,6 @@ body {
     max-height: 150px;
     overflow: auto;
 }
+
+@import 'themes/default.scss';
+@import 'themes/dark.scss';

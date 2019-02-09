@@ -39,7 +39,6 @@ var calculate = function calculate(n1, operator, n2) {
       withCredentials: true
     },
     url: 'http://localhost:3001',
-    // async: false,
     dataType: 'json',
     data: request,
     success: function success(data) {
@@ -109,7 +108,26 @@ keys.on('click', function (e) {
     calculator.data('operator', action);
   }
 
-  if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt') {
+  if (action === 'plusminus') {
+    var calcValue = displayedNum;
+
+    switch (Math.sign(displayedNum)) {
+      case 1:
+        calcValue = -Math.abs(displayedNum);
+        break;
+
+      case -1:
+        calcValue = Math.abs(displayedNum);
+        break;
+    }
+
+    calculator.data('firstValue', calcValue);
+    createResultString(calcValue);
+    calculator.data('previousKeyType', 'operator');
+    calculator.data('operator', action);
+  }
+
+  if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt' || action === 'percent') {
     calculate(displayedNum, action).then(function (data) {
       var calcValue = data.result;
       createResultString(calcValue);
@@ -175,10 +193,8 @@ keys.on('click', function (e) {
   }
 
   if (debug) {
-    console.log("\n            key = ".concat(key, "\n            keyContent = ").concat(keyContent, "\n            displayedNum = ").concat(displayedNum, "\n            previousKeyType = ").concat(previousKeyType, "\n        "));
+    console.log("\n            action = ".concat(action, "\n            keyContent = ").concat(keyContent, "\n            displayedNum = ").concat(displayedNum, "\n            previousKeyType = ").concat(previousKeyType, "\n        "));
   }
-
-  ;
 });
 /* Listen for Keyboard events */
 

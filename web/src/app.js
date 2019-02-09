@@ -30,7 +30,6 @@ const calculate = (n1, operator, n2) => {
             withCredentials: true
         },
         url: 'http://localhost:3001',
-        // async: false,
         dataType: 'json',
         data: request,
         success: function (data) {
@@ -107,10 +106,31 @@ keys.on('click', e => {
     }
 
     if (
+        action === 'plusminus'
+    ) {
+
+        let calcValue = displayedNum;
+        switch( Math.sign(displayedNum) ) {
+        case 1:
+            calcValue = -Math.abs(displayedNum);
+            break;
+        case -1:
+            calcValue = Math.abs(displayedNum);
+            break;
+        }
+
+        calculator.data('firstValue', calcValue);
+        createResultString(calcValue);
+        calculator.data('previousKeyType', 'operator');
+        calculator.data('operator', action);
+    }
+
+    if (
         action === 'pow' ||
         action === 'pow3' ||
         action === 'sqrt' ||
-        action === 'cbrt'
+        action === 'cbrt' ||
+        action === 'percent'
     ) {
         calculate(displayedNum, action)
             .then((data) => {
@@ -177,12 +197,12 @@ keys.on('click', e => {
 
     if (debug) {
         console.log(`
-            key = ${key}
+            action = ${action}
             keyContent = ${keyContent}
             displayedNum = ${displayedNum}
             previousKeyType = ${previousKeyType}
         `);
-    };
+    }
 });
 
 /* Listen for Keyboard events */

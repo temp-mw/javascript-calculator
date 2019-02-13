@@ -238,6 +238,7 @@ const getPressedKey = function (keyCode, shiftKey) {
 
 $(function() {
     $('.styleSwitch').on('click', function(e) {
+        e.preventDefault();
         $('body').attr('class', '').addClass($(this).attr('data-style'));
     });
 });

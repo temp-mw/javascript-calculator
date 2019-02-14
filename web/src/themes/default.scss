@@ -1,7 +1,14 @@
-$primary: #fff;
-$secondary: #000;
-
-body {
+$primary: #DBDBDC;
+$secondary: #5C5F64;
+$tertiary: #5C5F64;
+$base-font-color: #fff;
+body.default {
     background-color: $primary;
-    color: $secondary;
+    color: $base-font-color;
+    .display {
+        background-color: $secondary;
+    }
+    .keys {
+        background-color: $tertiary;
+    }
 }

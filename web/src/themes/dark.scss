@@ -1,7 +1,19 @@
-$primary: #000;
-$secondary: #fff;
-
+$primary: #d6d6d6;
+$secondary: #34373E;
+$tertiary: #66686e;
+$fourth: #34373E;
+$base-font-color: #fff;
 body.dark {
     background-color: $primary;
-    color: $secondary;
+    color: $base-font-color;
+    .display {
+        background-color: $secondary;
+    }
+    .keys {
+        background-color: $fourth;
+    }
+    .keys button {
+        background-color: $tertiary;
+        color: $base-font-color;
+    }
 }

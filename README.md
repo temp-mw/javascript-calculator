@@ -34,7 +34,8 @@ Compile src/app.js and src/app.scss to the public folder
 ```
 npm run dev
 ```
-Start BrowserSync on localhost:3002 (proxying 3000) and listen to changes
+Start BrowserSync on localhost:3002 (proxying 3000) and listen to changes  
+Note: Disable cache in Chrome dev tools under the Network tab for cache busting
 ```
 npm run watch
 ```

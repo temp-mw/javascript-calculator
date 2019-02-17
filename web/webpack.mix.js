@@ -1,4 +1,11 @@
 let mix = require('laravel-mix');
+let LiveReloadPlugin = require('webpack-livereload-plugin');
+
+mix.webpackConfig({
+    plugins: [
+        new LiveReloadPlugin()
+    ]
+});
 
 /*
  |--------------------------------------------------------------------------
@@ -19,21 +26,16 @@ mix.setPublicPath('public');
 mix.js('src/app.js', 'public/js').sass('src/app.scss', 'public/css').extract();
 mix.copy('src/index.html', 'public/index.html');
 
-mix.browserSync({
-    proxy: 'localhost:3000',
-    port: 3002,
-    ui: {
-        port: 3003
-    },
-    files: [
-        'src/index.html'
-    ]
-    // files: [
-    //     'public/app.js',
-    //     // 'dist/js/{*,**/*}.js',
-    //     //'templates/{*,**/*}.html.twig'
-    // ]
-});
+// mix.browserSync({
+//     proxy: 'localhost:3000',
+//     port: 3002,
+//     ui: {
+//         port: 3003
+//     },
+//     files: [
+//         'src/index.html'
+//     ]
+// });
 
 // Full API
 // mix.js(src, output);

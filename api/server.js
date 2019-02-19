@@ -28,7 +28,7 @@ const calculate = (n1, operator, n2 = 0, callback) => {
     if (operator === 'subtract') return callback({ result: n1.sub(n2).toNumber(), calc: `${n1} - ${n2}` });
     if (operator === 'multiply') return callback({ result: n1.mul(n2).toNumber(), calc: `${n1} * ${n2}` });
     if (operator === 'divide') return callback({ result: n1.div(n2).toNumber(), calc: `${n1} / ${n2}` });
-    if (operator === 'percent') return callback({ result: n1/100, calc: `${n1}/100` });
+    if (operator === 'percent') return callback({ result: n1.div(100).toNumber(), calc: `${n1}/100` });
     // // power of
     if (operator === 'pow') return callback({ result: n1.toPower(2).toNumber(), calc: `pow(${n1},2)` });
     if (operator === 'pow3') return callback({ result: n1.toPower(3).toNumber(), calc: `pow(${n1},3)` });

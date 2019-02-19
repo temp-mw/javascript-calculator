@@ -254,7 +254,8 @@ $(function() {
         $('body').attr('class', '').addClass($(this).attr('data-style') + ' ' + style);
     });
 
-    $('a.toggle').on('click', function() {
+    $('a.toggle').on('click', function(e) {
+        e.preventDefault();
         $(this).parent().next().slideToggle();
         $(this).find('i').toggleClass('rotate');
     });

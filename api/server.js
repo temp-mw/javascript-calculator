@@ -52,4 +52,4 @@ app.post('/', (req, res) => res.json(calculate(req.body.n1, req.body.operator, r
 
 app.get('/', (req, res) => res.send('<h1>Calculator Backend - Please make sure to use a post request<h2>'));
 
-app.listen(port, () => console.log(`Calc app listening on port ${port}!`));
+app.listen(port, () => console.log(`Calculator Node API listening on port ${port}!`));

@@ -17,48 +17,53 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link href="//fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link rel="stylesheet" href="css/app.css">
 </head>
 
 <body class="default">
-    Styles: <a href="#" class="styleSwitch" data-style="default">default</a>, <a href="#" class="styleSwitch" data-style="dark">dark</a>
-    <div class="container">
-        <div id="calculator">
-            <div class="display">0</div>
-            <div class="keys">
-                <button data-key="8" data-action="clear">AC</button>
-                <button class="operator" data-key="0" data-action="plusminus">+/-</button>
-                <button class="operator" data-key="0" data-action="percent">%</button>
-                <button class="operator" data-key="111" data-action="divide">÷</button>
-                <button data-key="103">7</button>
-                <button data-key="104">8</button>
-                <button data-key="105">9</button>
-                <button class="operator" data-key="106" data-action="multiply">&times;</button>
-                <button data-key="100">4</button>
-                <button data-key="101">5</button>
-                <button data-key="102">6</button>
-                <button class="operator" data-key="109" data-action="subtract">-</button>
-                <button data-key="97">1</button>
-                <button data-key="98">2</button>
-                <button data-key="99">3</button>
-                <button class="operator" data-key="107" data-action="add">+</button>
-                <button data-key="96" class="zero">0</button>
-                <button data-key="190" data-action="decimal">.</button>
-                <button data-key="13" class="equal" data-action="calculate">=</button>
-            </div>
-            <div style="color: white; background: #999; padding: 5px">advanced</div>
-            <div class="keys">
-                <button class="operator" data-action="pow">x<sup>2</sup></button>
-                <button class="operator" data-action="pow3">x<sup>3</sup></button>
-                <button class="operator" data-action="powy">x<sup>y</sup></button>
-                <button class="operator" data-action="sqrt">&#8730;</button>
-                <button class="operator" data-action="cbrt">&#8731;</button>
-                <button class="operator" data-action="nthrt">&#8730;y</button>
-            </div>
-            <div style="color: white; background: #999; padding: 5px">history</div>
-            <div>
-                <ul id="history"></ul>
-            </div>
+    <div id="calculator">
+        <div><a href="#" class="toggle"><i class="fas fa-wrench"></i></a></div>
+        <div id="themePicker" style="display: none; position: absolute; background: #999">
+            <a href="#" class="styleSwitch active" data-style="default">default</a>
+            <a href="#" class="styleSwitch" data-style="dark">dark</a>
+            <a href="#" class="sizeSwitch active" data-style="medium">medium</a>
+            <a href="#" class="sizeSwitch" data-style="large">large</a>
+        </div>
+        <div class="display">0</div>
+        <div class="keys">
+            <button data-key="8" data-action="clear">AC</button>
+            <button class="operator" data-key="0" data-action="plusminus">+/-</button>
+            <button class="operator" data-key="0" data-action="percent">%</button>
+            <button class="operator" data-key="111" data-action="divide">÷</button>
+            <button data-key="103">7</button>
+            <button data-key="104">8</button>
+            <button data-key="105">9</button>
+            <button class="operator" data-key="106" data-action="multiply">&times;</button>
+            <button data-key="100">4</button>
+            <button data-key="101">5</button>
+            <button data-key="102">6</button>
+            <button class="operator" data-key="109" data-action="subtract">-</button>
+            <button data-key="97">1</button>
+            <button data-key="98">2</button>
+            <button data-key="99">3</button>
+            <button class="operator" data-key="107" data-action="add">+</button>
+            <button data-key="96" class="zero">0</button>
+            <button data-key="190" data-action="decimal">.</button>
+            <button data-key="13" class="equal" data-action="calculate">=</button>
+        </div>
+        <div style="color: white; background: #999; padding: 5px"><a href="#" class="toggle"><i class="fas fa-arrow-down"></i></a> advanced</div>
+        <div class="keys" style="display: none;">
+            <button class="operator" data-action="pow">x<sup>2</sup></button>
+            <button class="operator" data-action="pow3">x<sup>3</sup></button>
+            <button class="operator" data-action="powy">x<sup>y</sup></button>
+            <button class="operator" data-action="sqrt">&#8730;</button>
+            <button class="operator" data-action="cbrt">&#8731;</button>
+            <button class="operator" data-action="nthrt">&#8730;y</button>
+        </div>
+        <div style="color: white; background: #999; padding: 5px"><a href="#" class="toggle"><i class="fas fa-arrow-down"></i></a> history</div>
+        <div style="display: none;">
+            <ul id="history"></ul>
         </div>
     </div>
 

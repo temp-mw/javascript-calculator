@@ -296,9 +296,24 @@ var getPressedKey = function getPressedKey(keyCode, shiftKey) {
 };
 
 $(function () {
+  var style, size;
   $('.styleSwitch').on('click', function (e) {
     e.preventDefault();
-    $('body').attr('class', '').addClass($(this).attr('data-style'));
+    $('.styleSwitch').removeClass('active');
+    $(this).addClass('active');
+    size = $('.sizeSwitch.active').attr('data-style');
+    $('body').attr('class', '').addClass($(this).attr('data-style') + ' ' + size);
+  });
+  $('.sizeSwitch').on('click', function (e) {
+    e.preventDefault();
+    $('.sizeSwitch').removeClass('active');
+    $(this).addClass('active');
+    style = $('.styleSwitch.active').attr('data-style');
+    $('body').attr('class', '').addClass($(this).attr('data-style') + ' ' + style);
+  });
+  $('a.toggle').on('click', function () {
+    $(this).parent().next().slideToggle();
+    $(this).find('i').toggleClass('rotate');
   });
 });
 

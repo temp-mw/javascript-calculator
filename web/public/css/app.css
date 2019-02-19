@@ -4,20 +4,19 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  margin: 30px;
+  margin: 0;
   font-size: 1.1em;
   line-height: 1.3;
 }
 
-.container {
-  max-width: 21em;
+a {
+  color: #fff;
 }
 
 #calculator {
   border-radius: 12px;
   box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.15);
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   width: 440px;
   overflow: hidden;
 }
@@ -80,6 +79,11 @@ body {
   overflow: auto;
 }
 
+.rotate {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
 body.default {
   background-color: #DBDBDC;
   color: #fff;
@@ -109,5 +113,9 @@ body.dark .keys {
 body.dark .keys button {
   background-color: #66686e;
   color: #fff;
+}
+
+body.large #calculator {
+  width: 90%;
 }
 

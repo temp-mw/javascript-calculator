@@ -45,7 +45,7 @@ const calculate = (n1, operator, n2 = 0, callback) => {
 function nodeActions(data) {
     fs.appendFile('calculations.txt', `${data.calc} = ${data.result}\n`, function (err) {
         if (err) throw err;
-        console.log('Saved!');
+        console.log('Last calculation saved into calculations.txt');
     });
     return data;
 }

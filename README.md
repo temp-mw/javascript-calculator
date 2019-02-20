@@ -34,8 +34,8 @@ Compile src/app.js and src/app.scss to the public folder
 ```
 npm run dev
 ```
-Start BrowserSync on localhost:3002 (proxying 3000) and listen to changes  
-Note: Disable cache in Chrome dev tools under the Network tab for cache busting
+Start LiveReload and listen to changes  (Get LiveReload Browser extension: https://chrome.google.com/webstore/detail/livereload)  
+Note: Keep dev tools open and disable cache in Chrome dev tools under the Network tab for cache busting
 ```
 npm run watch
 ```
@@ -46,21 +46,19 @@ npm run prod
 
 ## Features
 - separation of front-end (web) and back-end (api)
-- basic operations: +, -, *, /
-- advanced functions: pow & square root
+- basic and advanced operations
 - history of calculations is shown in front-end (non-persistent)
 - history of calculations is saved on the server side under api/calculations.txt
 - uses jQuery
-- basic sass setup
+- sass setup with normalize.css, fontawesome and Google Roboto font.
 - uses Laravel-Mix for compilation and minification
 - calculations are performed by the nodejs/express server through json post requests
 - Keyboard support (add tooltip to buttons!)
-- removed native Math functions and uses decimal.js (out of curiosity :-)
+- removed native Math functions and now uses decimal.js
 
 
 ## Further Options & todos
 ### Functionality
-- add more advanced calculations
 - use Typescript? Maybe server-side?
 
 ### Design

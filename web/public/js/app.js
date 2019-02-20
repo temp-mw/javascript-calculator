@@ -127,7 +127,7 @@ keys.on('click', function (e) {
     calculator.data('operator', action);
   }
 
-  if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt' || action === 'percent') {
+  if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt' || action === 'sin' || action === 'cos' || action === 'percent') {
     calculate(displayedNum, action).then(function (data) {
       var calcValue = data.result;
       createResultString(calcValue);

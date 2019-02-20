@@ -130,6 +130,8 @@ keys.on('click', e => {
         action === 'pow3' ||
         action === 'sqrt' ||
         action === 'cbrt' ||
+        action === 'sin' ||
+        action === 'cos' ||
         action === 'percent'
     ) {
         calculate(displayedNum, action)

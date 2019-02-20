@@ -37,6 +37,8 @@ const calculate = (n1, operator, n2 = 0, callback) => {
     if (operator === 'sqrt') return callback({ result: n1.squareRoot().toNumber(), calc: `sqrt(${n1})` });
     if (operator === 'cbrt') return callback({ result: n1.cbrt().toNumber(), calc: `cbrt(${n1})` });
     if (operator === 'nthrt') return callback({ result: n1.pow(new Decimal(1).div(n2)).toNumber(), calc: `pow(${n1}, 1 / ${n2})` });
+    if (operator === 'sin') return callback({ result: n1.sin().toNumber(), calc: `sin(${n1})` });
+    if (operator === 'cos') return callback({ result: n1.cos().toNumber(), calc: `cos(${n1})` });
 
 };
 

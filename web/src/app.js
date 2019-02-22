@@ -273,6 +273,7 @@ $(function() {
 
     $('a.toggle').on('click', function(e) {
         e.preventDefault();
+        $(this).blur();
         $(this).parent().next().slideToggle();
         $(this).find('i').toggleClass('rotate');
     });

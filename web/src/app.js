@@ -243,8 +243,8 @@ function saveToLocalStorage(type, value) {
 }
 
 $(function() {
-    let style = localStorage.getItem('style') || 'default';
-    let size = localStorage.getItem('size') || 'medium';
+    let style = localStorage.getItem('style') || 'light';
+    let size = localStorage.getItem('size') || 'regular';
 
     $('body').addClass(style + ' ' + size);
     $('.styleSwitch[data-style='+style+']').addClass('active');
@@ -277,4 +277,15 @@ $(function() {
         $(this).parent().next().slideToggle();
         $(this).find('i').toggleClass('rotate');
     });
+
+    $(document).mousedown(function (e) {
+        var clicked = $(e.target); // get the element clicked
+        if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
+            if ($('#themePicker').is(':visible')) {
+                $('#themePicker').slideUp();
+                $('#settings').find('i').toggleClass('rotate');
+            }
+        }
+    });
+
 });

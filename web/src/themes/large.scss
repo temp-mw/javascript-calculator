@@ -2,4 +2,10 @@ body.large {
     #calculator {
         width: 90%;
     }
+    .keys {
+        button {
+            padding: 1.5em 1.25em;
+            font-size: 1.2em;
+        }
+    }
 }

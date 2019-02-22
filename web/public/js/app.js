@@ -300,8 +300,8 @@ function saveToLocalStorage(type, value) {
 }
 
 $(function () {
-  var style = localStorage.getItem('style') || 'default';
-  var size = localStorage.getItem('size') || 'medium';
+  var style = localStorage.getItem('style') || 'light';
+  var size = localStorage.getItem('size') || 'regular';
   $('body').addClass(style + ' ' + size);
   $('.styleSwitch[data-style=' + style + ']').addClass('active');
   $('.sizeSwitch[data-style=' + size + ']').addClass('active');
@@ -329,6 +329,16 @@ $(function () {
     $(this).blur();
     $(this).parent().next().slideToggle();
     $(this).find('i').toggleClass('rotate');
+  });
+  $(document).mousedown(function (e) {
+    var clicked = $(e.target); // get the element clicked
+
+    if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
+      if ($('#themePicker').is(':visible')) {
+        $('#themePicker').slideUp();
+        $('#settings').find('i').toggleClass('rotate');
+      }
+    }
   });
 });
 

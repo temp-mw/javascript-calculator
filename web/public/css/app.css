@@ -542,7 +542,6 @@ a {
 #calculator {
   border-radius: 12px;
   box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.15);
-  width: 355px;
   overflow: hidden;
   position: relative;
 }
@@ -559,6 +558,23 @@ a {
   top: 5px;
   left: 30px;
   background: #999;
+  z-index: 1;
+  border-radius: 4px;
+  box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.25);
+}
+
+#themePicker ul {
+  list-style-type: none;
+  padding: 15px;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 70px auto auto;
+  grid-gap: 10px;
+}
+
+#themePicker ul a.sizeSwitch.active,
+#themePicker ul a.styleSwitch.active {
+  color: #000;
 }
 
 .display {
@@ -572,12 +588,6 @@ a {
   display: grid;
   grid-gap: 1px;
   grid-template-columns: repeat(4, 1fr);
-}
-
-.keys > div {
-  display: grid;
-  grid-gap: 1px;
-  grid-template-columns: repeat(1, 1fr);
 }
 
 .keys button {
@@ -624,16 +634,16 @@ a {
           transform: rotate(180deg);
 }
 
-body.default {
+body.light {
   background-color: #DBDBDC;
   color: #fff;
 }
 
-body.default .display {
+body.light .display {
   background-color: #5C5F64;
 }
 
-body.default .keys {
+body.light .keys {
   background-color: #5C5F64;
 }
 
@@ -655,7 +665,16 @@ body.dark .keys button {
   color: #fff;
 }
 
+body.regular #calculator {
+  width: 355px;
+}
+
 body.large #calculator {
   width: 90%;
+}
+
+body.large .keys button {
+  padding: 1.5em 1.25em;
+  font-size: 1.2em;
 }
 

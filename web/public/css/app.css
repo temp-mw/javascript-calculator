@@ -541,7 +541,7 @@ a {
 
 #calculator {
   border-radius: 12px;
-  box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   position: relative;
 }
@@ -549,18 +549,16 @@ a {
 #settings {
   position: absolute;
   top: 5px;
-  left: 5px;
+  left: 6px;
 }
 
 #themePicker {
   display: none;
   position: absolute;
-  top: 5px;
-  left: 30px;
-  background: #999;
+  top: 9px;
+  left: 35px;
   z-index: 1;
   border-radius: 4px;
-  box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.25);
 }
 
 #themePicker ul {
@@ -578,7 +576,6 @@ a {
 }
 
 .display {
-  color: #fff;
   font-size: 1.5em;
   padding: 0.5em 0.75em;
   text-align: right;
@@ -624,27 +621,62 @@ a {
   grid-column: 1/span 2;
 }
 
+.bar {
+  color: white;
+  padding: 5px;
+}
+
 #history {
   max-height: 150px;
   overflow: auto;
 }
 
+.fas {
+  margin: 5px 5px 5px 3px;
+}
+
+.fa-toggle {
+  transition: rotate 0.5s linear;
+}
+
 .rotate {
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
+  -webkit-transform: rotate(-180deg);
+          transform: rotate(-180deg);
 }
 
 body.light {
   background-color: #DBDBDC;
-  color: #fff;
+  color: #322f2f;
+}
+
+body.light a {
+  color: #322f2f;
+}
+
+body.light #calculator {
+  background-color: #fff;
+}
+
+body.light #themePicker {
+  background-color: #e0e0e0;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.7);
 }
 
 body.light .display {
-  background-color: #5C5F64;
+  background-color: #e0e0e0;
 }
 
 body.light .keys {
-  background-color: #5C5F64;
+  background-color: #e0e0e0;
+}
+
+body.light .keys button {
+  background-color: #fff;
+}
+
+body.light .bar {
+  background: #e0e0e0;
+  border-bottom: 1px solid #fafafa;
 }
 
 body.dark {
@@ -652,7 +684,17 @@ body.dark {
   color: #fff;
 }
 
+body.dark #calculator {
+  background-color: #66686e;
+}
+
+body.dark #themePicker {
+  background-color: #66686e;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.7);
+}
+
 body.dark .display {
+  color: #fff;
   background-color: #34373E;
 }
 
@@ -663,6 +705,11 @@ body.dark .keys {
 body.dark .keys button {
   background-color: #66686e;
   color: #fff;
+}
+
+body.dark .bar {
+  background: #34373E;
+  border-bottom: 1px solid #4b505a;
 }
 
 body.regular #calculator {

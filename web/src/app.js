@@ -243,7 +243,7 @@ function saveToLocalStorage(type, value) {
 }
 
 $(function() {
-    let style = localStorage.getItem('style') || 'light';
+    let style = localStorage.getItem('style') || 'dark';
     let size = localStorage.getItem('size') || 'regular';
 
     $('body').addClass(style + ' ' + size);

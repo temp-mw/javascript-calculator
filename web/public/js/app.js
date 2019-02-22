@@ -300,7 +300,7 @@ function saveToLocalStorage(type, value) {
 }
 
 $(function () {
-  var style = localStorage.getItem('style') || 'light';
+  var style = localStorage.getItem('style') || 'dark';
   var size = localStorage.getItem('size') || 'regular';
   $('body').addClass(style + ' ' + size);
   $('.styleSwitch[data-style=' + style + ']').addClass('active');

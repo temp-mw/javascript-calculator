@@ -34,7 +34,7 @@ a {
 
 #calculator {
     border-radius: 12px;
-    box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.15); // margin: 0 auto;
+    box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.3); // margin: 0 auto;
     overflow: hidden;
     position: relative;
 }
@@ -42,18 +42,16 @@ a {
 #settings {
     position: absolute;
     top: 5px;
-    left: 5px;
+    left: 6px;
 }
 
 #themePicker {
     display: none;
     position: absolute;
-    top: 5px;
-    left: 30px;
-    background: #999;
+    top: 9px;
+    left: 35px;
     z-index: 1;
     border-radius: 4px;
-    box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.25);
     ul {
         list-style-type: none;
         padding: 15px;
@@ -69,7 +67,6 @@ a {
 }
 
 .display {
-    color: #fff;
     font-size: 1.5em;
     padding: 0.5em 0.75em;
     text-align: right;
@@ -107,13 +104,16 @@ a {
 }
 
 .equal {
-    background-image: linear-gradient(to bottom, #F99C2A, #ff7033); // grid-column: -2;
-    // grid-row: 2 / span 4;
+    background-image: linear-gradient(to bottom, #F99C2A, #ff7033);
 }
 
 .zero {
-    // grid-row: 2 / span 4;
     grid-column: 1 / span 2;
+}
+
+.bar {
+    color: white;
+    padding: 5px
 }
 
 #history {
@@ -121,8 +121,16 @@ a {
     overflow: auto;
 }
 
+.fas {
+    margin: 5px 5px 5px 3px;
+}
+
+.fa-toggle {
+    transition: rotate .5s linear;
+}
+
 .rotate {
-    transform: rotate(180deg);
+    transform: rotate(-180deg);
 }
 
 @import 'themes/light.scss';

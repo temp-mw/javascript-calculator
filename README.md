@@ -51,6 +51,7 @@ npm run prod
 - history of calculations is saved on the server side under api/calculations.txt
 - uses jQuery
 - sass setup with normalize.css, fontawesome and Google Roboto font.
+- style preferences are saved into localStore
 - uses Laravel-Mix for compilation and minification
 - calculations are performed by the nodejs/express server through json post requests
 - Keyboard support (add tooltip to buttons!)

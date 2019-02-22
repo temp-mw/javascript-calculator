@@ -20,13 +20,18 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 
-<body class="default">
+<body>
+    <div id="loader">
+        <div class="fa-6x">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </div>
+    </div>
     <div id="calculator">
         <div id="settings"><a href="#" class="toggle"><i class="fas fa-wrench"></i></a></div>
         <div id="themePicker">
-            <a href="#" class="styleSwitch active" data-style="default">default</a>
+            <a href="#" class="styleSwitch" data-style="default">default</a>
             <a href="#" class="styleSwitch" data-style="dark">dark</a>
-            <a href="#" class="sizeSwitch active" data-style="medium">medium</a>
+            <a href="#" class="sizeSwitch" data-style="medium">medium</a>
             <a href="#" class="sizeSwitch" data-style="large">large</a>
         </div>
         <div class="display">0</div>

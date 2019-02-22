@@ -238,22 +238,37 @@ const getPressedKey = function (keyCode, shiftKey) {
     return false;
 };
 
+function saveToLocalStorage(type, value) {
+    localStorage.setItem(type, value);
+}
+
 $(function() {
-    let style, size;
+    let style = localStorage.getItem('style') || saveToLocalStorage('style', 'default');
+    let size = localStorage.getItem('size') || saveToLocalStorage('size', 'medium');
+
+    $('body').addClass(style + ' ' + size);
+    $('.styleSwitch[data-style='+style+']').addClass('active');
+    $('.sizeSwitch[data-style=' + size + ']').addClass('active');
+
+    $('#loader').delay(500).fadeOut(500);
 
     $('.styleSwitch').on('click', function(e) {
         e.preventDefault();
         $('.styleSwitch').removeClass('active');
         $(this).addClass('active');
+        style = $(this).attr('data-style');
         size = $('.sizeSwitch.active').attr('data-style');
-        $('body').attr('class', '').addClass($(this).attr('data-style') + ' ' + size);
+        $('body').attr('class', '').addClass(style + ' ' + size);
+        saveToLocalStorage('style', style);
     });
     $('.sizeSwitch').on('click', function (e) {
         e.preventDefault();
         $('.sizeSwitch').removeClass('active');
         $(this).addClass('active');
+        size = $(this).attr('data-style');
         style = $('.styleSwitch.active').attr('data-style');
-        $('body').attr('class', '').addClass($(this).attr('data-style') + ' ' + style);
+        $('body').attr('class', '').addClass(size + ' ' + style);
+        saveToLocalStorage('size', size);
     });
 
     $('a.toggle').on('click', function(e) {

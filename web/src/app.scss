@@ -18,6 +18,20 @@ a {
     text-decoration: none;
 }
 
+#loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ccc;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
 #calculator {
     border-radius: 12px;
     box-shadow: 0 0 40px 0px rgba(0, 0, 0, 0.15); // margin: 0 auto;

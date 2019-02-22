@@ -1,31 +1,30 @@
-$primary: #DBDBDC;
-$secondary: #e0e0e0;
-$tertiary: #fff;
+$first: #e0e0e0;
+$second: #fff;
 $base-font-color: rgb(50, 47, 47);
 body.light {
-    background-color: $primary;
+    background-color: darken($first, 10%);
     color: $base-font-color;
     a {
         color: $base-font-color;
     }
     #calculator {
-        background-color: $tertiary;
+        background-color: $second;
     }
     #themePicker {
-        background-color: $secondary;
+        background-color: $first;
         box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.7);
     }
     .display {
-        background-color: $secondary;
+        background-color: $first;
     }
     .keys {
-        background-color: $secondary;
+        background-color: $first;
         button {
-            background-color: $tertiary;
+            background-color: $second;
         }
     }
     .bar {
-        background: $secondary;
-        border-bottom: 1px solid lighten( $secondary, 10%);
+        background: $first;
+        border-bottom: 1px solid lighten( $first, 10%);
     }
 }

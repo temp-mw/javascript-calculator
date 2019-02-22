@@ -645,7 +645,7 @@ a {
 }
 
 body.light {
-  background-color: #DBDBDC;
+  background-color: #c7c7c7;
   color: #322f2f;
 }
 
@@ -680,7 +680,7 @@ body.light .bar {
 }
 
 body.dark {
-  background-color: #d6d6d6;
+  background-color: #999ba1;
   color: #fff;
 }
 

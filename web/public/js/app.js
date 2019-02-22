@@ -300,8 +300,8 @@ function saveToLocalStorage(type, value) {
 }
 
 $(function () {
-  var style = localStorage.getItem('style') || saveToLocalStorage('style', 'default');
-  var size = localStorage.getItem('size') || saveToLocalStorage('size', 'medium');
+  var style = localStorage.getItem('style') || 'default';
+  var size = localStorage.getItem('size') || 'medium';
   $('body').addClass(style + ' ' + size);
   $('.styleSwitch[data-style=' + style + ']').addClass('active');
   $('.sizeSwitch[data-style=' + size + ']').addClass('active');

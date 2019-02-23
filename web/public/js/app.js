@@ -74,6 +74,7 @@ keys.on('click', function (e) {
   // Remove .is-pressed class from all keys
 
   keys.removeClass('is-pressed');
+  key.blur(); // remove focus from clicked keys für return key
 
   if (!action) {
     // number keys

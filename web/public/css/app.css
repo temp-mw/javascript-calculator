@@ -713,7 +713,7 @@ body.dark .bar {
 
 body.green {
   background-color: #cde9c7;
-  color: #fff;
+  color: #012004;
 }
 
 body.green #calculator {
@@ -726,7 +726,7 @@ body.green #themePicker {
 }
 
 body.green .display {
-  color: #fff;
+  color: #012004;
   background-color: #012004;
 }
 
@@ -736,7 +736,7 @@ body.green .keys {
 
 body.green .keys button {
   background-color: #8bcc7e;
-  color: #fff;
+  color: #012004;
 }
 
 body.green .bar {
@@ -745,7 +745,7 @@ body.green .bar {
 }
 
 body.green .equal {
-  background-image: linear-gradient(to bottom, #012004 70%, #8bcc7e);
+  background-image: linear-gradient(to bottom, #eeeeee, #8bcc7e);
 }
 
 body.regular #calculator {

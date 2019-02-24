@@ -1,6 +1,6 @@
 $first: rgb(1, 32, 4);
 $second: #8bcc7e;
-$base-font-color: #fff;
+$base-font-color: $first;
 body.green {
     background-color: lighten($second, 20%);
     color: $base-font-color;
@@ -27,6 +27,6 @@ body.green {
         border-bottom: 1px solid lighten( $first, 10%);
     }
     .equal {
-        background-image: linear-gradient(to bottom, $first 70%, $second);
+        background-image: linear-gradient(to bottom, #eeeeee, $second);
     }
 }

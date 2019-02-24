@@ -513,7 +513,6 @@ template {
 body {
   font-family: "Roboto", sans-serif;
   margin: 0;
-  font-size: 1.1em;
   line-height: 1.3;
   display: flex;
   justify-content: center;
@@ -712,12 +711,50 @@ body.dark .bar {
   border-bottom: 1px solid #4b505a;
 }
 
+body.green {
+  background-color: #cde9c7;
+  color: #fff;
+}
+
+body.green #calculator {
+  background-color: #8bcc7e;
+}
+
+body.green #themePicker {
+  background-color: #8bcc7e;
+  box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.7);
+}
+
+body.green .display {
+  color: #fff;
+  background-color: #012004;
+}
+
+body.green .keys {
+  background-color: #012004;
+}
+
+body.green .keys button {
+  background-color: #8bcc7e;
+  color: #fff;
+}
+
+body.green .bar {
+  background: #012004;
+  border-bottom: 1px solid #03510a;
+}
+
+body.green .equal {
+  background-image: linear-gradient(to bottom, #012004 70%, #8bcc7e);
+}
+
 body.regular #calculator {
   width: 355px;
 }
 
 body.large #calculator {
   width: 90%;
+  font-size: 1.2em;
 }
 
 body.large .keys button {

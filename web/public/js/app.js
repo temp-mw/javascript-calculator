@@ -363,8 +363,8 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/Guni/Code/fh/web/calculator/web/src/app.js */"./src/app.js");
-module.exports = __webpack_require__(/*! /Users/Guni/Code/fh/web/calculator/web/src/app.scss */"./src/app.scss");
+__webpack_require__(/*! /Users/helenewechselberger/FH/1.sem/web/calculator/web/src/app.js */"./src/app.js");
+module.exports = __webpack_require__(/*! /Users/helenewechselberger/FH/1.sem/web/calculator/web/src/app.scss */"./src/app.scss");
 
 
 /***/ })

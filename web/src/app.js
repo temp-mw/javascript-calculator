@@ -243,12 +243,17 @@ function saveToLocalStorage(type, value) {
 $(function() {
     let style = localStorage.getItem('style') || 'dark';
     let size = localStorage.getItem('size') || 'regular';
+    let adv = localStorage.getItem('adv') || false;
+    let his = localStorage.getItem('his') || false;
 
     $('body').addClass(style + ' ' + size);
     $('.styleSwitch[data-style='+style+']').addClass('active');
     $('.sizeSwitch[data-style=' + size + ']').addClass('active');
-
-    $('#loader').delay(500).fadeOut(500);
+    console.log(typeof(adv));
+    $('#loader').delay(500).fadeOut(500, function() {
+        if (adv === 'true') $('.toggle:eq(1)').parent().next().slideToggle();
+        if (his === 'true') $('.toggle:eq(2)').parent().next().slideToggle();
+    });
 
     $('.styleSwitch').on('click', function(e) {
         e.preventDefault();
@@ -272,7 +277,10 @@ $(function() {
     $('a.toggle').on('click', function(e) {
         e.preventDefault();
         $(this).blur();
-        $(this).parent().next().slideToggle();
+        let item = $(this);
+        $(this).parent().next().slideToggle(function(){
+            saveToLocalStorage(item.text(), $(this).is(':visible'));
+        });
         $(this).find('i').toggleClass('rotate');
     });
 

@@ -25,5 +25,8 @@
   "repository": {
     "type": "git",
     "url": "git@gitlab.web.fh-kufstein.ac.at:gunharth/calculator.git"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
   }
 }

@@ -26,9 +26,6 @@ const calculate = (n1, operator, n2) => {
 
     const result = $.ajax({
         type: 'POST',
-        xhrFields: {
-            withCredentials: true
-        },
         url: 'http://localhost:3001',
         dataType: 'json',
         data: request,

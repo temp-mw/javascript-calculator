@@ -58,7 +58,7 @@ a {
         padding: 15px;
         margin: 0;
         display: grid;
-        grid-template-columns: 70px auto auto;
+        grid-template-columns: 70px auto auto auto;
         grid-gap: 10px;
     }
     ul a.sizeSwitch.active,
@@ -139,4 +139,3 @@ a {
 @import 'themes/green.scss';
 @import 'themes/regular.scss';
 @import 'themes/large.scss';
-

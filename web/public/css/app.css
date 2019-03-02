@@ -565,7 +565,7 @@ a {
   padding: 15px;
   margin: 0;
   display: grid;
-  grid-template-columns: 70px auto auto;
+  grid-template-columns: 70px auto auto auto;
   grid-gap: 10px;
 }
 
@@ -727,11 +727,11 @@ body.green #themePicker {
 
 body.green .display {
   color: #fff;
-  background-color: #012004;
+  background-color: #1f5724;
 }
 
 body.green .keys {
-  background-color: #012004;
+  background-color: #1f5724;
 }
 
 body.green .keys button {
@@ -740,12 +740,12 @@ body.green .keys button {
 }
 
 body.green .bar {
-  background: #012004;
-  border-bottom: 1px solid #03510a;
+  background: #1f5724;
+  border-bottom: 1px solid #2c7d34;
 }
 
 body.green .equal {
-  background-image: linear-gradient(to bottom, #012004 70%, #8bcc7e);
+  background-image: linear-gradient(to bottom, #1f5724 50%, #8bcc7e);
 }
 
 body.regular #calculator {

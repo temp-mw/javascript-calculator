@@ -215,6 +215,8 @@ $(document).on('keyup', e => {
 const getPressedKey = function (keyCode, shiftKey) {
     const isShift = shiftKey ? true : false;
 
+
+    if (keyCode == 53) { return 53; } // 0
     if (keyCode == 48 || keyCode == 96) { return 96; } // 0
     if (keyCode == 49 || keyCode == 97) { return 97; } // 1
     if (keyCode == 50 || keyCode == 98) { return 98; } // 2

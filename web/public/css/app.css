@@ -558,6 +558,7 @@ a {
   left: 35px;
   z-index: 1;
   border-radius: 4px;
+  padding: 10px;
 }
 
 #themePicker ul {
@@ -565,13 +566,17 @@ a {
   padding: 15px;
   margin: 0;
   display: grid;
-  grid-template-columns: 70px auto auto;
+  grid-template-columns: auto auto auto;
   grid-gap: 10px;
 }
 
 #themePicker ul a.sizeSwitch.active,
 #themePicker ul a.styleSwitch.active {
   color: #000;
+}
+
+#themePicker .styleTitle {
+  grid-column: 1/4;
 }
 
 .display {
@@ -631,7 +636,7 @@ a {
 }
 
 .fas {
-  margin: 5px 5px 5px 3px;
+  margin: 5px 10px 5px 3px;
 }
 
 .fa-toggle {
@@ -713,7 +718,7 @@ body.dark .bar {
 
 body.green {
   background-color: #cde9c7;
-  color: #012004;
+  color: #1f5724;
 }
 
 body.green #calculator {
@@ -726,29 +731,29 @@ body.green #themePicker {
 }
 
 body.green .display {
-  color: #012004;
-  background-color: #024809;
+  color: #1f5724;
+  background-color: #2a7530;
   color: white;
 }
 
 body.green .keys {
-  background-color: #012004;
+  background-color: #1f5724;
 }
 
 body.green .keys button {
   background-color: #8bcc7e;
-  color: #012004;
+  color: #1f5724;
 }
 
 body.green .keys button.equal {
   background-image: none;
-  background-color: #024809;
+  background-color: #2a7530;
   color: white;
 }
 
 body.green .bar {
-  background: #012004;
-  border-bottom: 1px solid #03510a;
+  background: #1f5724;
+  border-bottom: 1px solid #2c7d34;
   color: #8bcc7e;
 }
 
@@ -959,3 +964,4 @@ body.large .keys button {
   padding: 1.5em 1.25em;
   font-size: 1.2em;
 }
+

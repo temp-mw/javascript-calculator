@@ -4,7 +4,6 @@
 }
 
 $font-size: 1.1em;
-
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -53,17 +52,21 @@ a {
     left: 35px;
     z-index: 1;
     border-radius: 4px;
+    padding: 10px;
     ul {
         list-style-type: none;
         padding: 15px;
         margin: 0;
         display: grid;
-        grid-template-columns: 70px auto auto auto;
+        grid-template-columns: auto auto auto;
         grid-gap: 10px;
     }
     ul a.sizeSwitch.active,
     ul a.styleSwitch.active {
         color: #000
+    }
+    .styleTitle {
+        grid-column: 1 / 4;
     }
 }
 

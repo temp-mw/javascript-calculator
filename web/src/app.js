@@ -248,8 +248,8 @@ $(function () {
     $('.sizeSwitch[data-style=' + size + ']').addClass('active');
 
     $('#loader').delay(500).fadeOut(500, function () {
-        if (adv === 'true') $('.toggle:eq(1)').parent().next().slideToggle();
-        if (his === 'true') $('.toggle:eq(2)').parent().next().slideToggle();
+        if (adv === 'true') $('.toggle:eq(1)').click();
+        if (his === 'true') $('.toggle:eq(2)').click();
     });
 
     $('.styleSwitch').on('click', function (e) {
@@ -274,12 +274,14 @@ $(function () {
 
     $('a.toggle').on('click', function (e) {
         e.preventDefault();
-        $(this).blur();
         let item = $(this);
-        $(this).parent().next().slideToggle(function () {
-            saveToLocalStorage(item.text(), $(this).is(':visible'));
+        item.blur();
+        item.parent().next().slideToggle(function () {
+            if(item.text() != '') {
+                saveToLocalStorage(item.text(), $(this).is(':visible'));
+            }
         });
-        $(this).find('i').toggleClass('rotate');
+        item.find('i').toggleClass('rotate');
     });
 
     $(document).mousedown(function (e) {

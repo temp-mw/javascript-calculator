@@ -566,8 +566,9 @@ a {
   padding: 15px;
   margin: 0;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(5, 1fr);
   grid-gap: 10px;
+  justify-items: center;
 }
 
 #themePicker ul a.sizeSwitch.active,
@@ -575,8 +576,41 @@ a {
   color: #000;
 }
 
-#themePicker .styleTitle {
-  grid-column: 1/4;
+#themePicker a {
+  text-indent: -9999px;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+}
+
+#themePicker a[data-style=dark] {
+  background: #34373E;
+}
+
+#themePicker a[data-style=light] {
+  background: #fff;
+}
+
+#themePicker a[data-style=green] {
+  background: green;
+}
+
+#themePicker a[data-style=pink] {
+  background: pink;
+}
+
+#themePicker a[data-style=brown] {
+  background: #88725D;
+}
+
+#themePicker a[data-style=regular] {
+  border: 1px solid #000;
+}
+
+#themePicker a[data-style=large] {
+  border: 1px solid #000;
+  height: 30px;
+  width: 30px;
 }
 
 .display {

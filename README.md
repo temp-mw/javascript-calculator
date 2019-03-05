@@ -46,22 +46,13 @@ npm run prod
 
 ## Features
 - separation of front-end (web) and back-end (api)
-- basic and advanced operations
+- basic and few advanced operations
 - history of calculations is shown in front-end (non-persistent)
 - history of calculations is saved on the server side under api/calculations.txt
+- front end settings (theme, size, adv, his) are saved to local storage
 - uses jQuery
 - sass setup with normalize.css, fontawesome and Google Roboto font.
-- style preferences are saved into localStore
 - uses Laravel-Mix for compilation and minification
 - calculations are performed by the nodejs/express server through json post requests
 - Keyboard support (add tooltip to buttons!)
 - removed native Math functions and now uses decimal.js
-
-
-## Further Options & todos
-### Functionality
-- use Typescript? Maybe server-side?
-
-### Design
-- implement Bootstrap
-- show tooltips on buttons

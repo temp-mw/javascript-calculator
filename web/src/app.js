@@ -2,6 +2,8 @@
 
 window.$ = window.jQuery = require('jquery'); // add jquery
 
+const debug = false; // set to true to show console log with pressed keys and actions
+
 /*
 Define all calculator parts for reference
 */
@@ -10,11 +12,10 @@ const display = $('#calculator .display');
 const keys = $('button');
 const clearButton = $('button[data-action=clear]');
 const history = $('#history');
-const debug = true;
 
 /*
-Passes all calculations to the nodejs api
-via ajax post and creates a promise
+Passes all calculations to the nodejs api via ajax post and creates a promise.
+Returns the result of the calculation as well as the calculation string for the history
 */
 const calculate = (n1, operator, n2) => {
 
@@ -26,9 +27,6 @@ const calculate = (n1, operator, n2) => {
 
     const result = $.ajax({
         type: 'POST',
-        xhrFields: {
-            withCredentials: true
-        },
         url: 'http://localhost:3001',
         dataType: 'json',
         data: request,
@@ -56,9 +54,8 @@ keys.on('click', e => {
     const displayedNum = display.text(); // value of the display
     const previousKeyType = calculator.data('previousKeyType'); // memorize the previous key type
 
-    // Remove .is-pressed class from all keys
-    keys.removeClass('is-pressed');
-    key.blur(); // remove focus from clicked keys für return key
+    keys.removeClass('is-pressed'); // Remove .is-pressed class from all keys
+    key.blur(); // remove focus from clicked keys for return key functionality
 
     if (!action) { // number keys
         if (
@@ -111,7 +108,7 @@ keys.on('click', e => {
     ) {
 
         let calcValue = displayedNum;
-        switch( Math.sign(displayedNum) ) {
+        switch (Math.sign(displayedNum)) {
         case 1:
             calcValue = -Math.abs(displayedNum);
             break;
@@ -166,10 +163,6 @@ keys.on('click', e => {
             calculator.data('previousKeyType', '');
         } else {
             key.text('AC');
-            calculator.data('firstValue', '');
-            calculator.data('modValue', '');
-            calculator.data('operator', '');
-            calculator.data('previousKeyType', '');
         }
         createResultString(0);
         calculator.data('previousKeyType', 'clear');
@@ -218,6 +211,7 @@ $(document).on('keyup', e => {
 const getPressedKey = function (keyCode, shiftKey) {
     const isShift = shiftKey ? true : false;
 
+    if (keyCode == 53) { return 53; } // % key
     if (keyCode == 48 || keyCode == 96) { return 96; } // 0
     if (keyCode == 49 || keyCode == 97) { return 97; } // 1
     if (keyCode == 50 || keyCode == 98) { return 98; } // 2
@@ -232,7 +226,7 @@ const getPressedKey = function (keyCode, shiftKey) {
     if ((isShift && keyCode == 56 || keyCode == 221) || keyCode == 106) { return 106; } // * multiply
     if (keyCode == 187 || keyCode == 107) { return 107; } // + add
     if (keyCode == 189 || keyCode == 109) { return 109; } // - subtract
-    if (keyCode == 190 || keyCode == 110) { return 110; } // .
+    if (keyCode == 190 || keyCode == 110) { return 190; } // .
     if (keyCode == 46 || keyCode == 8 || keyCode == 12) { return 8; } // delete key clear
     if ((isShift && keyCode == 48) || keyCode == 13) { return 13; } // return key  =
 
@@ -243,17 +237,22 @@ function saveToLocalStorage(type, value) {
     localStorage.setItem(type, value);
 }
 
-$(function() {
+$(function () {
     let style = localStorage.getItem('style') || 'dark';
     let size = localStorage.getItem('size') || 'regular';
+    let adv = localStorage.getItem('adv') || false;
+    let his = localStorage.getItem('his') || false;
 
     $('body').addClass(style + ' ' + size);
-    $('.styleSwitch[data-style='+style+']').addClass('active');
+    $('.styleSwitch[data-style=' + style + ']').addClass('active');
     $('.sizeSwitch[data-style=' + size + ']').addClass('active');
 
-    $('#loader').delay(500).fadeOut(500);
+    $('#loader').delay(500).fadeOut(500, function () {
+        if (adv === 'true') $('.toggle:eq(1)').parent().next().slideToggle();
+        if (his === 'true') $('.toggle:eq(2)').parent().next().slideToggle();
+    });
 
-    $('.styleSwitch').on('click', function(e) {
+    $('.styleSwitch').on('click', function (e) {
         e.preventDefault();
         $('.styleSwitch').removeClass('active');
         $(this).addClass('active');
@@ -262,6 +261,7 @@ $(function() {
         $('body').attr('class', '').addClass(style + ' ' + size);
         saveToLocalStorage('style', style);
     });
+
     $('.sizeSwitch').on('click', function (e) {
         e.preventDefault();
         $('.sizeSwitch').removeClass('active');
@@ -272,10 +272,13 @@ $(function() {
         saveToLocalStorage('size', size);
     });
 
-    $('a.toggle').on('click', function(e) {
+    $('a.toggle').on('click', function (e) {
         e.preventDefault();
         $(this).blur();
-        $(this).parent().next().slideToggle();
+        let item = $(this);
+        $(this).parent().next().slideToggle(function () {
+            saveToLocalStorage(item.text(), $(this).is(':visible'));
+        });
         $(this).find('i').toggleClass('rotate');
     });
 

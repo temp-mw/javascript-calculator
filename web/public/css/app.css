@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 /*! normalize-scss | MIT/GPLv2 License | bit.ly/normalize-scss */
 
 /* Document
@@ -574,10 +576,19 @@ a {
 #themePicker ul a.sizeSwitch.active,
 #themePicker ul a.styleSwitch.active {
   color: #000;
+  position: relative;
+}
+
+#themePicker ul a.sizeSwitch.active:before,
+#themePicker ul a.styleSwitch.active:before {
+  content: "\F00C";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: tomato;
+  margin-left: 2px;
 }
 
 #themePicker a {
-  text-indent: -9999px;
   display: inline-block;
   height: 20px;
   width: 20px;
@@ -611,6 +622,15 @@ a {
   border: 1px solid #000;
   height: 30px;
   width: 30px;
+}
+
+#themePicker a.sizeSwitch.active[data-style=large]:before {
+  content: "\F00C";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: tomato;
+  margin-left: 6px;
+  margin-top: 2px;
 }
 
 .display {

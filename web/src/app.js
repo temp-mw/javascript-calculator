@@ -203,6 +203,8 @@ keys.on('click', e => {
 
 /* Listen for Keyboard events */
 $(document).on('keyup', e => {
+    e.preventDefault();
+    console.log(e.keyCode);
     const pressedKey = $(`button[data-key='${getPressedKey(e.keyCode, e.shiftKey)}']`);
     if (!pressedKey) return;
     pressedKey.click();
@@ -211,7 +213,7 @@ $(document).on('keyup', e => {
 const getPressedKey = function (keyCode, shiftKey) {
     const isShift = shiftKey ? true : false;
 
-    if (keyCode == 53) { return 53; } // % key
+    if (isShift && keyCode == 53) { return 53; } // % key
     if (keyCode == 48 || keyCode == 96) { return 96; } // 0
     if (keyCode == 49 || keyCode == 97) { return 97; } // 1
     if (keyCode == 50 || keyCode == 98) { return 98; } // 2
@@ -224,7 +226,7 @@ const getPressedKey = function (keyCode, shiftKey) {
     if ((!isShift && keyCode == 56) || keyCode == 104) { return 104; } // 8
     if (keyCode == 57 || keyCode == 105) { return 105; } // 9
     if ((isShift && keyCode == 56 || keyCode == 221) || keyCode == 106) { return 106; } // * multiply
-    if (keyCode == 187 || keyCode == 107) { return 107; } // + add
+    if (keyCode == 187 || keyCode == 107 || keyCode == 171) { return 107; } // + add
     if (keyCode == 189 || keyCode == 109) { return 109; } // - subtract
     if (keyCode == 190 || keyCode == 110) { return 190; } // .
     if (keyCode == 46 || keyCode == 8 || keyCode == 12) { return 8; } // delete key clear

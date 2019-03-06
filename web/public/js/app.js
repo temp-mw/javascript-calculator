@@ -194,6 +194,8 @@ keys.on('click', function (e) {
 /* Listen for Keyboard events */
 
 $(document).on('keyup', function (e) {
+  e.preventDefault();
+  console.log(e.keyCode);
   var pressedKey = $("button[data-key='".concat(getPressedKey(e.keyCode, e.shiftKey), "']"));
   if (!pressedKey) return;
   pressedKey.click();
@@ -202,7 +204,7 @@ $(document).on('keyup', function (e) {
 var getPressedKey = function getPressedKey(keyCode, shiftKey) {
   var isShift = shiftKey ? true : false;
 
-  if (keyCode == 53) {
+  if (isShift && keyCode == 53) {
     return 53;
   } // % key
 
@@ -267,7 +269,7 @@ var getPressedKey = function getPressedKey(keyCode, shiftKey) {
   } // * multiply
 
 
-  if (keyCode == 187 || keyCode == 107) {
+  if (keyCode == 187 || keyCode == 107 || keyCode == 171) {
     return 107;
   } // + add
 

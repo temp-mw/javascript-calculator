@@ -195,7 +195,11 @@ keys.on('click', function (e) {
 
 $(document).on('keyup', function (e) {
   e.preventDefault();
-  console.log(e.keyCode);
+
+  if (debug) {
+    console.log("keyCode = ".concat(e.keyCode));
+  }
+
   var pressedKey = $("button[data-key='".concat(getPressedKey(e.keyCode, e.shiftKey), "']"));
   if (!pressedKey) return;
   pressedKey.click();

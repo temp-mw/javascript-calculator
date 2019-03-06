@@ -204,7 +204,9 @@ keys.on('click', e => {
 /* Listen for Keyboard events */
 $(document).on('keyup', e => {
     e.preventDefault();
-    // console.log(e.keyCode);
+    if (debug) {
+        console.log(`keyCode = ${e.keyCode}`);
+    }
     const pressedKey = $(`button[data-key='${getPressedKey(e.keyCode, e.shiftKey)}']`);
     if (!pressedKey) return;
     pressedKey.click();

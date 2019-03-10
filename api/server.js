@@ -3,9 +3,7 @@ const Decimal = require('decimal.js');
 const fs = require('fs');
 const cors = require('cors');
 
-
-
-
+//set up server with express
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -41,6 +39,7 @@ const calculate = (n1, operator, n2 = 0, callback) => {
 
 };
 
+//save last calculation in txt file for records
 function nodeActions(data) {
     fs.appendFile('calculations.txt', `${data.calc} = ${data.result}\n`, function (err) {
         if (err) throw err;

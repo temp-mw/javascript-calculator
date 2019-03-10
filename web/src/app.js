@@ -1,12 +1,11 @@
 'use strict';
 
-window.$ = window.jQuery = require('jquery'); // add jquery
+window.$ = window.jQuery = require('jquery'); // add jQuery
 
+// debug tool - support for setting up calculator
 const debug = false; // set to true to show console log with pressed keys and actions
 
-/*
-Define all calculator parts for reference
-*/
+// Define all major calculator parts
 const calculator = $('#calculator');
 const display = $('#calculator .display');
 const keys = $('button');
@@ -14,7 +13,7 @@ const clearButton = $('button[data-action=clear]');
 const history = $('#history');
 
 /*
-Passes all calculations to the nodejs api via ajax post and creates a promise.
+Passes all calculations to the nodejs api via ajax post and creates a promise
 Returns the result of the calculation as well as the calculation string for the history
 */
 const calculate = (n1, operator, n2) => {
@@ -25,6 +24,7 @@ const calculate = (n1, operator, n2) => {
         operator: operator
     };
 
+    //If post request to port 3001 was successful, return n1, n2 and operator and add <li> to history
     const result = $.ajax({
         type: 'POST',
         url: 'http://localhost:3001',
@@ -37,7 +37,7 @@ const calculate = (n1, operator, n2) => {
     return result;
 };
 
-/* Outputs the result into the display */
+//Put the result into the display
 const createResultString = (value) => {
     if (value === null) {
         display.text('NaN');
@@ -46,18 +46,19 @@ const createResultString = (value) => {
     display.text(value);
 };
 
-/* Add the click event listener for all buttons */
+//Add click event listener for all buttons
 keys.on('click', e => {
     const key = $(e.target); // make target a jQuery instance
-    const action = key.attr('data-action'); // if exists get the data-action attribute from the button
-    const keyContent = key.text(); // value of the pressed key
-    const displayedNum = display.text(); // value of the display
+    const action = key.attr('data-action'); // if data-action exists, get the data-action attribute from the button
+    const keyContent = key.text(); // get value of the pressed key
+    const displayedNum = display.text(); // get value of the display
     const previousKeyType = calculator.data('previousKeyType'); // memorize the previous key type
 
     keys.removeClass('is-pressed'); // Remove .is-pressed class from all keys
-    key.blur(); // remove focus from clicked keys for return key functionality
+    key.blur(); // remove focus from clicked keys for returning key functionality
 
-    if (!action) { // number keys
+    //action when NUMBER keys get clicked
+    if (!action) {
         if (
             displayedNum === '0' ||
             previousKeyType === 'operator' ||
@@ -70,7 +71,8 @@ keys.on('click', e => {
         calculator.data('previousKeyType', 'number');
     }
 
-    if ( // operators
+    //action when OPERATOR keys get clicked & get first Value, operator and displayed number for calculation
+    if (
         action === 'add' ||
         action === 'subtract' ||
         action === 'multiply' ||
@@ -82,7 +84,7 @@ keys.on('click', e => {
         const operator = calculator.data('operator');
         const secondValue = displayedNum;
 
-        // Note: It's sufficient to check for firstValue and operator because secondValue always exists
+        // Check whether firstValue and operator are available. Note: secondValue always exists.
         if (
             firstValue &&
             operator &&
@@ -96,13 +98,14 @@ keys.on('click', e => {
                     calculator.data('firstValue', calcValue);
                 });
         } else {
-            calculator.data('firstValue', displayedNum);
+            calculator.data('firstValue', displayedNum); //if no first value exists, create it with displayed number
         }
         key.addClass('is-pressed'); // used to style operators
         calculator.data('previousKeyType', 'operator');
         calculator.data('operator', action);
     }
 
+    //plus minus button: switches positive values to minus, negative values to positve numbers
     if (
         action === 'plusminus'
     ) {
@@ -123,6 +126,7 @@ keys.on('click', e => {
         calculator.data('operator', action);
     }
 
+    //advanced key section
     if (
         action === 'pow' ||
         action === 'pow3' ||
@@ -132,6 +136,7 @@ keys.on('click', e => {
         action === 'cos' ||
         action === 'percent'
     ) {
+        //immediate calculation of displayed number and data-action of pressed advanced key
         calculate(displayedNum, action)
             .then((data) => {
                 const calcValue = data.result;
@@ -143,6 +148,7 @@ keys.on('click', e => {
         calculator.data('operator', action);
     }
 
+    //decimal-key: appends . to displayed number or of no number is displayed, appends 0.
     if (action === 'decimal') {
         if (!displayedNum.includes('.')) {
             createResultString(displayedNum + '.');
@@ -155,19 +161,21 @@ keys.on('click', e => {
         calculator.data('previousKeyType', 'decimal');
     }
 
+    //clear Button
     if (action === 'clear') {
-        if (key.text() === 'AC') {
+        // if (key.text() === 'AC') {
             calculator.data('firstValue', '');
             calculator.data('modValue', '');
             calculator.data('operator', '');
             calculator.data('previousKeyType', '');
-        } else {
-            key.text('AC');
-        }
+        // } else {
+        //     key.text('AC');
+        // }
         createResultString(0);
         calculator.data('previousKeyType', 'clear');
     }
 
+    //equals-Button: checks first for valid inputs before starting calculation process
     if (action === 'calculate') {
         let firstValue = calculator.data('firstValue');
         const operator = calculator.data('operator');
@@ -187,10 +195,11 @@ keys.on('click', e => {
         calculator.data('previousKeyType', 'calculate');
     }
 
-    if (action !== 'clear') {
+    /* if (action !== 'clear') {
         clearButton.text('CE');
-    }
+    } */
 
+    //debug tool - only used for setting up calculator
     if (debug) {
         console.log(`
             action = ${action}
@@ -201,7 +210,7 @@ keys.on('click', e => {
     }
 });
 
-/* Listen for Keyboard events */
+//Listen for Keyboard events
 $(document).on('keyup', e => {
     e.preventDefault();
     if (debug) {
@@ -212,6 +221,7 @@ $(document).on('keyup', e => {
     pressedKey.click();
 });
 
+//transform pressed keyboard-keys into numberic values for calcultion
 const getPressedKey = function (keyCode, shiftKey) {
     const isShift = shiftKey ? true : false;
 
@@ -237,10 +247,14 @@ const getPressedKey = function (keyCode, shiftKey) {
     return false;
 };
 
+//save layout settings to local storage
 function saveToLocalStorage(type, value) {
     localStorage.setItem(type, value);
 }
 
+/* detect user settings or set default layout
+apply style and size
+implement loader function */
 $(function () {
     let style = localStorage.getItem('style') || 'dark';
     let size = localStorage.getItem('size') || 'regular';
@@ -288,8 +302,9 @@ $(function () {
         item.find('i').toggleClass('rotate');
     });
 
+    //theme picker visibilty
     $(document).mousedown(function (e) {
-        var clicked = $(e.target); // get the element clicked
+        var clicked = $(e.target); // make clicked element jQuery element
         if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
             if ($('#themePicker').is(':visible')) {
                 $('#themePicker').slideUp();

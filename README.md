@@ -47,6 +47,7 @@ npm run prod
 ## Features
 - separation of front-end (web) and back-end (api)
 - basic and few advanced operations
+- various front-end layouts
 - history of calculations is shown in front-end (non-persistent)
 - history of calculations is saved on the server side under api/calculations.txt
 - front end settings (theme, size, adv, his) are saved to local storage

@@ -11,12 +11,10 @@
 
 
 window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); // add jquery
+// debug tool - support for setting up calculator
 
 var debug = false; // set to true to show console log with pressed keys and actions
-
-/*
-Define all calculator parts for reference
-*/
+// Define all calculator parts for reference
 
 var calculator = $('#calculator');
 var display = $('#calculator .display');
@@ -147,14 +145,13 @@ keys.on('click', function (e) {
   }
 
   if (action === 'clear') {
-    if (key.text() === 'AC') {
-      calculator.data('firstValue', '');
-      calculator.data('modValue', '');
-      calculator.data('operator', '');
-      calculator.data('previousKeyType', '');
-    } else {
-      key.text('AC');
-    }
+    // if (key.text() === 'AC') {
+    calculator.data('firstValue', '');
+    calculator.data('modValue', '');
+    calculator.data('operator', '');
+    calculator.data('previousKeyType', ''); // } else {
+    //     key.text('AC');
+    // }
 
     createResultString(0);
     calculator.data('previousKeyType', 'clear');
@@ -181,11 +178,10 @@ keys.on('click', function (e) {
 
     calculator.data('modValue', _secondValue);
     calculator.data('previousKeyType', 'calculate');
-  }
+  } // if (action !== 'clear') {
+  //     clearButton.text('CE');
+  // }
 
-  if (action !== 'clear') {
-    clearButton.text('CE');
-  }
 
   if (debug) {
     console.log("\n            action = ".concat(action, "\n            keyContent = ").concat(keyContent, "\n            displayedNum = ").concat(displayedNum, "\n            previousKeyType = ").concat(previousKeyType, "\n        "));
@@ -337,16 +333,14 @@ $(function () {
       if (item.text() != '') {
         saveToLocalStorage(item.text(), $(this).is(':visible'));
       }
-    });
-    item.find('i').toggleClass('rotate');
+    }); // item.find('i').toggleClass('rotate');
   });
   $(document).mousedown(function (e) {
     var clicked = $(e.target); // get the element clicked
 
     if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
       if ($('#themePicker').is(':visible')) {
-        $('#themePicker').slideUp();
-        $('#settings').find('i').toggleClass('rotate');
+        $('#themePicker').slideUp(); // $('#settings').find('i').toggleClass('rotate');
       }
     }
   });
@@ -372,8 +366,8 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/Guni/Code/fh/web/calculator/web/src/app.js */"./src/app.js");
-module.exports = __webpack_require__(/*! /Users/Guni/Code/fh/web/calculator/web/src/app.scss */"./src/app.scss");
+__webpack_require__(/*! /Users/helenewechselberger/FH/1.sem/web/calculator/web/src/app.js */"./src/app.js");
+module.exports = __webpack_require__(/*! /Users/helenewechselberger/FH/1.sem/web/calculator/web/src/app.scss */"./src/app.scss");
 
 
 /***/ })

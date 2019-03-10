@@ -161,7 +161,7 @@ keys.on('click', e => {
         calculator.data('previousKeyType', 'decimal');
     }
 
-    //clear Button 
+    //clear Button
     if (action === 'clear') {
         // if (key.text() === 'AC') {
             calculator.data('firstValue', '');
@@ -199,7 +199,7 @@ keys.on('click', e => {
         clearButton.text('CE');
     } */
 
-   //debug tool - only used for setting up calculator
+    //debug tool - only used for setting up calculator
     if (debug) {
         console.log(`
             action = ${action}
@@ -295,7 +295,7 @@ $(function () {
                 saveToLocalStorage(item.text(), $(this).is(':visible'));
             }
         });
-        // item.find('i').toggleClass('rotate');
+        item.find('i').toggleClass('rotate');
     });
 
     //theme picker visibilty
@@ -304,7 +304,7 @@ $(function () {
         if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
             if ($('#themePicker').is(':visible')) {
                 $('#themePicker').slideUp();
-                // $('#settings').find('i').toggleClass('rotate');
+                $('#settings').find('i').toggleClass('rotate');
             }
         }
     });

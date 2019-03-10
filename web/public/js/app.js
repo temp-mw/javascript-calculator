@@ -10,11 +10,11 @@
 "use strict";
 
 
-window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); // add jquery
+window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); // add jQuery
 // debug tool - support for setting up calculator
 
 var debug = false; // set to true to show console log with pressed keys and actions
-// Define all calculator parts for reference
+// Define all major calculator parts
 
 var calculator = $('#calculator');
 var display = $('#calculator .display');
@@ -22,7 +22,7 @@ var keys = $('button');
 var clearButton = $('button[data-action=clear]');
 var history = $('#history');
 /*
-Passes all calculations to the nodejs api via ajax post and creates a promise.
+Passes all calculations to the nodejs api via ajax post and creates a promise
 Returns the result of the calculation as well as the calculation string for the history
 */
 
@@ -31,7 +31,8 @@ var calculate = function calculate(n1, operator, n2) {
     n1: n1,
     n2: n2,
     operator: operator
-  };
+  }; //If post request to port 3001 was successful, return n1, n2 and operator and add <li> to history
+
   var result = $.ajax({
     type: 'POST',
     url: 'http://localhost:3001',
@@ -42,8 +43,7 @@ var calculate = function calculate(n1, operator, n2) {
     }
   });
   return result;
-};
-/* Outputs the result into the display */
+}; //Put the result into the display
 
 
 var createResultString = function createResultString(value) {
@@ -53,27 +53,26 @@ var createResultString = function createResultString(value) {
   }
 
   display.text(value);
-};
-/* Add the click event listener for all buttons */
+}; //Add click event listener for all buttons
 
 
 keys.on('click', function (e) {
   var key = $(e.target); // make target a jQuery instance
 
-  var action = key.attr('data-action'); // if exists get the data-action attribute from the button
+  var action = key.attr('data-action'); // if data-action exists, get the data-action attribute from the button
 
-  var keyContent = key.text(); // value of the pressed key
+  var keyContent = key.text(); // get value of the pressed key
 
-  var displayedNum = display.text(); // value of the display
+  var displayedNum = display.text(); // get value of the display
 
   var previousKeyType = calculator.data('previousKeyType'); // memorize the previous key type
 
   keys.removeClass('is-pressed'); // Remove .is-pressed class from all keys
 
-  key.blur(); // remove focus from clicked keys for return key functionality
+  key.blur(); // remove focus from clicked keys for returning key functionality
+  //action when NUMBER keys get clicked
 
   if (!action) {
-    // number keys
     if (displayedNum === '0' || previousKeyType === 'operator' || previousKeyType === 'calculate') {
       createResultString(keyContent);
     } else {
@@ -81,13 +80,13 @@ keys.on('click', function (e) {
     }
 
     calculator.data('previousKeyType', 'number');
-  }
+  } //action when OPERATOR keys get clicked & get first Value, operator and displayed number for calculation
 
-  if ( // operators
-  action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide' || action === 'powy' || action === 'nthrt') {
+
+  if (action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide' || action === 'powy' || action === 'nthrt') {
     var firstValue = calculator.data('firstValue');
     var operator = calculator.data('operator');
-    var secondValue = displayedNum; // Note: It's sufficient to check for firstValue and operator because secondValue always exists
+    var secondValue = displayedNum; // Check whether firstValue and operator are available. Note: secondValue always exists.
 
     if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
       calculate(firstValue, operator, secondValue).then(function (data) {
@@ -96,14 +95,15 @@ keys.on('click', function (e) {
         calculator.data('firstValue', calcValue);
       });
     } else {
-      calculator.data('firstValue', displayedNum);
+      calculator.data('firstValue', displayedNum); //if no first value exists, create it with displayed number
     }
 
     key.addClass('is-pressed'); // used to style operators
 
     calculator.data('previousKeyType', 'operator');
     calculator.data('operator', action);
-  }
+  } //plus minus button: switches positive values to minus, negative values to positve numbers
+
 
   if (action === 'plusminus') {
     var calcValue = displayedNum;
@@ -122,9 +122,11 @@ keys.on('click', function (e) {
     createResultString(calcValue);
     calculator.data('previousKeyType', 'operator');
     calculator.data('operator', action);
-  }
+  } //advanced key section
+
 
   if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt' || action === 'sin' || action === 'cos' || action === 'percent') {
+    //immediate calculation of displayed number and data-action of pressed advanced key
     calculate(displayedNum, action).then(function (data) {
       var calcValue = data.result;
       createResultString(calcValue);
@@ -132,7 +134,8 @@ keys.on('click', function (e) {
     });
     calculator.data('previousKeyType', 'operator');
     calculator.data('operator', action);
-  }
+  } //decimal-key: appends . to displayed number or of no number is displayed, appends 0.
+
 
   if (action === 'decimal') {
     if (!displayedNum.includes('.')) {
@@ -142,7 +145,8 @@ keys.on('click', function (e) {
     }
 
     calculator.data('previousKeyType', 'decimal');
-  }
+  } //clear Button
+
 
   if (action === 'clear') {
     // if (key.text() === 'AC') {
@@ -155,7 +159,8 @@ keys.on('click', function (e) {
 
     createResultString(0);
     calculator.data('previousKeyType', 'clear');
-  }
+  } //equals-Button: checks first for valid inputs before starting calculation process
+
 
   if (action === 'calculate') {
     var _firstValue = calculator.data('firstValue');
@@ -178,22 +183,23 @@ keys.on('click', function (e) {
 
     calculator.data('modValue', _secondValue);
     calculator.data('previousKeyType', 'calculate');
-  } // if (action !== 'clear') {
-  //     clearButton.text('CE');
-  // }
+  }
+  /* if (action !== 'clear') {
+      clearButton.text('CE');
+  } */
+  //debug tool - only used for setting up calculator
 
 
   if (debug) {
     console.log("\n            action = ".concat(action, "\n            keyContent = ").concat(keyContent, "\n            displayedNum = ").concat(displayedNum, "\n            previousKeyType = ").concat(previousKeyType, "\n        "));
   }
-});
-/* Listen for Keyboard events */
+}); //Listen for Keyboard events
 
 $(document).on('keyup', function (e) {
   var pressedKey = $("button[data-key='".concat(getPressedKey(e.keyCode, e.shiftKey), "']"));
   if (!pressedKey) return;
   pressedKey.click();
-});
+}); //transform pressed keyboard-keys into numberic values for calcultion
 
 var getPressedKey = function getPressedKey(keyCode, shiftKey) {
   var isShift = shiftKey ? true : false;
@@ -289,11 +295,16 @@ var getPressedKey = function getPressedKey(keyCode, shiftKey) {
 
 
   return false;
-};
+}; //save layout settings to local storage
+
 
 function saveToLocalStorage(type, value) {
   localStorage.setItem(type, value);
 }
+/* detect user settings or set default layout
+apply style and size
+implement loader function */
+
 
 $(function () {
   var style = localStorage.getItem('style') || 'dark';
@@ -333,14 +344,17 @@ $(function () {
       if (item.text() != '') {
         saveToLocalStorage(item.text(), $(this).is(':visible'));
       }
-    }); // item.find('i').toggleClass('rotate');
-  });
+    });
+    item.find('i').toggleClass('rotate');
+  }); //theme picker visibilty
+
   $(document).mousedown(function (e) {
-    var clicked = $(e.target); // get the element clicked
+    var clicked = $(e.target); // make clicked element jQuery element
 
     if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
       if ($('#themePicker').is(':visible')) {
-        $('#themePicker').slideUp(); // $('#settings').find('i').toggleClass('rotate');
+        $('#themePicker').slideUp();
+        $('#settings').find('i').toggleClass('rotate');
       }
     }
   });
@@ -366,8 +380,8 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/helenewechselberger/FH/1.sem/web/calculator/web/src/app.js */"./src/app.js");
-module.exports = __webpack_require__(/*! /Users/helenewechselberger/FH/1.sem/web/calculator/web/src/app.scss */"./src/app.scss");
+__webpack_require__(/*! /Users/Guni/Code/fh/web/calculator/web/src/app.js */"./src/app.js");
+module.exports = __webpack_require__(/*! /Users/Guni/Code/fh/web/calculator/web/src/app.scss */"./src/app.scss");
 
 
 /***/ })

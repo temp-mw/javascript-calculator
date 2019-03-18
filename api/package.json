@@ -4,7 +4,7 @@
   "description": "A nodejs calculator api",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [
     "nodejs",
@@ -17,7 +17,9 @@
     "decimal.js": "^10.0.2",
     "express": "^4.16.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  },
   "repository": {
     "type": "git",
     "url": "git@gitlab.web.fh-kufstein.ac.at:gunharth/calculator.git"

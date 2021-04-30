@@ -32,8 +32,7 @@ Compile src/app.js and src/app.scss to the public folder
 ```
 npm run dev
 ```
-Start LiveReload and listen to changes  (Get LiveReload Browser extension: https://chrome.google.com/webstore/detail/livereload)  
-Note: Keep dev tools open and disable cache in Chrome dev tools under the Network tab for cache busting
+Automatically listen for code changes and re-compile with
 ```
 npm run watch
 ```
@@ -52,6 +51,6 @@ npm run prod
 - uses jQuery
 - sass setup with normalize.css, fontawesome and Google Roboto font.
 - uses Laravel-Mix for compilation and minification to web/public
-- calculations are performed by the nodejs/express server through json post requests
-- Keyboard support 
-- removed native Math functions with decimal.js
+- calculations are performed by the nodejs/express api server through json post requests
+- keyboard support 
+- replaced native Math functions with decimal.js

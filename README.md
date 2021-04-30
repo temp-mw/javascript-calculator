@@ -1,7 +1,6 @@
-# calculator WIP
+# Javascript Calculator
 
-A JavaScript calculator
-
+![Javascript Calculator](javascript-calculator.png)
 
 ## Installation
 

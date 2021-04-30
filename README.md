@@ -55,7 +55,3 @@ npm run prod
 - calculations are performed by the nodejs/express server through json post requests
 - Keyboard support 
 - removed native Math functions with decimal.js
-- Tested with Chrome
-
-## Features
-- Todo: testing with different browsers / keyboards (Summer 19)

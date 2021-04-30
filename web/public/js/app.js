@@ -1,1 +1,391 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[0],[function(t,a,e){e(1),t.exports=e(3)},function(t,a,e){"use strict";window.$=window.jQuery=e(2);var s=$("#calculator"),r=$("#calculator .display"),i=$("button"),o=($("button[data-action=clear]"),$("#history")),l=function(t,a,e){var s={n1:t,n2:e,operator:a};return $.ajax({type:"POST",url:"http://localhost:3001",dataType:"json",data:s,success:function(t){o.prepend("<li>".concat(t.calc," = ").concat(t.result,"</li>"))}})},c=function(t){null!==t?r.text(t):r.text("NaN")};i.on("click",function(t){var a=$(t.target),e=a.attr("data-action"),o=a.text(),n=r.text(),d=s.data("previousKeyType");if(i.removeClass("is-pressed"),a.blur(),e||(c("0"===n||"operator"===d||"calculate"===d?o:n+o),s.data("previousKeyType","number")),"add"===e||"subtract"===e||"multiply"===e||"divide"===e||"powy"===e||"nthrt"===e){var u=s.data("firstValue"),p=s.data("operator");u&&p&&"operator"!==d&&"calculate"!==d?l(u,p,n).then(function(t){var a=t.result;c(a),s.data("firstValue",a)}):s.data("firstValue",n),a.addClass("is-pressed"),s.data("previousKeyType","operator"),s.data("operator",e)}if("plusminus"===e){var y=n;switch(Math.sign(n)){case 1:y=-Math.abs(n);break;case-1:y=Math.abs(n)}s.data("firstValue",y),c(y),s.data("previousKeyType","operator"),s.data("operator",e)}if("pow"!==e&&"pow3"!==e&&"sqrt"!==e&&"cbrt"!==e&&"sin"!==e&&"cos"!==e&&"percent"!==e||(l(n,e).then(function(t){var a=t.result;c(a),s.data("firstValue",a)}),s.data("previousKeyType","operator"),s.data("operator",e)),"decimal"===e&&(n.includes(".")?"operator"!==d&&"calculate"!==d||c("0."):c(n+"."),s.data("previousKeyType","decimal")),"clear"===e&&(s.data("firstValue",""),s.data("modValue",""),s.data("operator",""),s.data("previousKeyType",""),c(0),s.data("previousKeyType","clear")),"calculate"===e){var v=s.data("firstValue"),f=s.data("operator"),h=n;v&&("calculate"===d&&(v=n,h=s.data("modValue")),l(v,f,h).then(function(t){c(t.result)})),s.data("modValue",h),s.data("previousKeyType","calculate")}}),$(document).on("keyup",function(t){t.preventDefault();var a=$("button[data-key='".concat(n(t.keyCode,t.shiftKey),"']"));a&&a.click()});var n=function(t,a){var e=!!a;return e&&53==t?53:48==t||96==t?96:49==t||97==t?97:50==t||98==t?98:51==t||99==t?99:52==t||100==t?100:53==t||101==t?101:54==t||102==t?102:e&&55==t||191==t||111==t?111:55==t||103==t?103:!e&&56==t||104==t?104:57==t||105==t?105:e&&56==t||221==t||106==t?106:187==t||107==t||171==t?107:189==t||109==t?109:190==t||110==t?190:46==t||8==t||12==t?8:!!(e&&48==t||13==t)&&13};function d(t,a){localStorage.setItem(t,a)}$(function(){var t=localStorage.getItem("style")||"dark",a=localStorage.getItem("size")||"regular",e=localStorage.getItem("adv")||!1,s=localStorage.getItem("his")||!1;$("body").addClass(t+" "+a),$(".styleSwitch[data-style="+t+"]").addClass("active"),$(".sizeSwitch[data-style="+a+"]").addClass("active"),$("#loader").delay(500).fadeOut(500,function(){"true"===e&&$(".toggle:eq(1)").click(),"true"===s&&$(".toggle:eq(2)").click()}),$(".styleSwitch").on("click",function(e){e.preventDefault(),$(".styleSwitch").removeClass("active"),$(this).addClass("active"),t=$(this).attr("data-style"),a=$(".sizeSwitch.active").attr("data-style"),$("body").attr("class","").addClass(t+" "+a),d("style",t)}),$(".sizeSwitch").on("click",function(e){e.preventDefault(),$(".sizeSwitch").removeClass("active"),$(this).addClass("active"),a=$(this).attr("data-style"),t=$(".styleSwitch.active").attr("data-style"),$("body").attr("class","").addClass(a+" "+t),d("size",a)}),$("a.toggle").on("click",function(t){t.preventDefault();var a=$(this);a.blur(),a.parent().next().slideToggle(function(){""!=a.text()&&d(a.text(),$(this).is(":visible"))}),a.find("i").toggleClass("rotate")}),$(document).mousedown(function(t){var a=$(t.target);a.is("#themePicker")||a.parents().is("#themePicker")||a.parents().is("#settings")||$("#themePicker").is(":visible")&&($("#themePicker").slideUp(),$("#settings").find("i").toggleClass("rotate"))})})},,function(t,a){}],[[0,1,2]]]);
+(self["webpackChunkcalculator_web"] = self["webpackChunkcalculator_web"] || []).push([["/js/app"],{
+
+/***/ "./src/app.js":
+/*!********************!*\
+  !*** ./src/app.js ***!
+  \********************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+
+
+window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"); // add jQuery
+// debug tool - support for setting up calculator
+
+var debug = false; // set to true to show console log with pressed keys and actions
+// Define all major calculator parts
+
+var calculator = $('#calculator');
+var display = $('#calculator .display');
+var keys = $('button');
+var clearButton = $('button[data-action=clear]');
+var history = $('#history');
+/*
+Passes all calculations to the nodejs api via ajax post and creates a promise
+Returns the result of the calculation as well as the calculation string for the history
+*/
+
+var calculate = function calculate(n1, operator, n2) {
+  var request = {
+    n1: n1,
+    n2: n2,
+    operator: operator
+  }; //If post request to port 3001 was successful, return n1, n2 and operator and add <li> to history
+
+  var result = $.ajax({
+    type: 'POST',
+    url: 'http://localhost:3001',
+    dataType: 'json',
+    data: request,
+    success: function success(data) {
+      history.prepend("<li>".concat(data.calc, " = ").concat(data.result, "</li>"));
+    }
+  });
+  return result;
+}; //Put the result into the display
+
+
+var createResultString = function createResultString(value) {
+  if (value === null) {
+    display.text('NaN');
+    return;
+  }
+
+  display.text(value);
+}; //Add click event listener for all buttons
+
+
+keys.on('click', function (e) {
+  var key = $(e.target); // make target a jQuery instance
+
+  var action = key.attr('data-action'); // if data-action exists, get the data-action attribute from the button
+
+  var keyContent = key.text(); // get value of the pressed key
+
+  var displayedNum = display.text(); // get value of the display
+
+  var previousKeyType = calculator.data('previousKeyType'); // memorize the previous key type
+
+  keys.removeClass('is-pressed'); // Remove .is-pressed class from all keys
+
+  key.blur(); // remove focus from clicked keys for returning key functionality
+  //action when NUMBER keys get clicked
+
+  if (!action) {
+    if (displayedNum === '0' || previousKeyType === 'operator' || previousKeyType === 'calculate') {
+      createResultString(keyContent);
+    } else {
+      createResultString(displayedNum + keyContent);
+    }
+
+    calculator.data('previousKeyType', 'number');
+  } //action when OPERATOR keys get clicked & get first Value, operator and displayed number for calculation
+
+
+  if (action === 'add' || action === 'subtract' || action === 'multiply' || action === 'divide' || action === 'powy' || action === 'nthrt') {
+    var firstValue = calculator.data('firstValue');
+    var operator = calculator.data('operator');
+    var secondValue = displayedNum; // Check whether firstValue and operator are available. Note: secondValue always exists.
+
+    if (firstValue && operator && previousKeyType !== 'operator' && previousKeyType !== 'calculate') {
+      calculate(firstValue, operator, secondValue).then(function (data) {
+        var calcValue = data.result;
+        createResultString(calcValue);
+        calculator.data('firstValue', calcValue);
+      });
+    } else {
+      calculator.data('firstValue', displayedNum); //if no first value exists, create it with displayed number
+    }
+
+    key.addClass('is-pressed'); // used to style operators
+
+    calculator.data('previousKeyType', 'operator');
+    calculator.data('operator', action);
+  } //plus minus button: switches positive values to minus, negative values to positve numbers
+
+
+  if (action === 'plusminus') {
+    var calcValue = displayedNum;
+
+    switch (Math.sign(displayedNum)) {
+      case 1:
+        calcValue = -Math.abs(displayedNum);
+        break;
+
+      case -1:
+        calcValue = Math.abs(displayedNum);
+        break;
+    }
+
+    calculator.data('firstValue', calcValue);
+    createResultString(calcValue);
+    calculator.data('previousKeyType', 'operator');
+    calculator.data('operator', action);
+  } //advanced key section
+
+
+  if (action === 'pow' || action === 'pow3' || action === 'sqrt' || action === 'cbrt' || action === 'sin' || action === 'cos' || action === 'percent') {
+    //immediate calculation of displayed number and data-action of pressed advanced key
+    calculate(displayedNum, action).then(function (data) {
+      var calcValue = data.result;
+      createResultString(calcValue);
+      calculator.data('firstValue', calcValue);
+    });
+    calculator.data('previousKeyType', 'operator');
+    calculator.data('operator', action);
+  } //decimal-key: appends . to displayed number or of no number is displayed, appends 0.
+
+
+  if (action === 'decimal') {
+    if (!displayedNum.includes('.')) {
+      createResultString(displayedNum + '.');
+    } else if (previousKeyType === 'operator' || previousKeyType === 'calculate') {
+      createResultString('0.');
+    }
+
+    calculator.data('previousKeyType', 'decimal');
+  } //clear Button
+
+
+  if (action === 'clear') {
+    // if (key.text() === 'AC') {
+    calculator.data('firstValue', '');
+    calculator.data('modValue', '');
+    calculator.data('operator', '');
+    calculator.data('previousKeyType', ''); // } else {
+    //     key.text('AC');
+    // }
+
+    createResultString(0);
+    calculator.data('previousKeyType', 'clear');
+  } //equals-Button: checks first for valid inputs before starting calculation process
+
+
+  if (action === 'calculate') {
+    var _firstValue = calculator.data('firstValue');
+
+    var _operator = calculator.data('operator');
+
+    var _secondValue = displayedNum;
+
+    if (_firstValue) {
+      if (previousKeyType === 'calculate') {
+        _firstValue = displayedNum;
+        _secondValue = calculator.data('modValue');
+      }
+
+      calculate(_firstValue, _operator, _secondValue).then(function (data) {
+        createResultString(data.result); // v1 is undefined
+      });
+    } // Set modValue attribute
+
+
+    calculator.data('modValue', _secondValue);
+    calculator.data('previousKeyType', 'calculate');
+  }
+  /* if (action !== 'clear') {
+      clearButton.text('CE');
+  } */
+  //debug tool - only used for setting up calculator
+
+
+  if (debug) {
+    console.log("\n            action = ".concat(action, "\n            keyContent = ").concat(keyContent, "\n            displayedNum = ").concat(displayedNum, "\n            previousKeyType = ").concat(previousKeyType, "\n        "));
+  }
+}); //Listen for Keyboard events
+
+$(document).on('keyup', function (e) {
+  e.preventDefault();
+
+  if (debug) {
+    console.log("keyCode = ".concat(e.keyCode));
+  }
+
+  var pressedKey = $("button[data-key='".concat(getPressedKey(e.keyCode, e.shiftKey), "']"));
+  if (!pressedKey) return;
+  pressedKey.click();
+}); //transform pressed keyboard-keys into numberic values for calcultion
+
+var getPressedKey = function getPressedKey(keyCode, shiftKey) {
+  var isShift = shiftKey ? true : false;
+
+  if (isShift && keyCode == 53) {
+    return 53;
+  } // % key
+
+
+  if (keyCode == 48 || keyCode == 96) {
+    return 96;
+  } // 0
+
+
+  if (keyCode == 49 || keyCode == 97) {
+    return 97;
+  } // 1
+
+
+  if (keyCode == 50 || keyCode == 98) {
+    return 98;
+  } // 2
+
+
+  if (keyCode == 51 || keyCode == 99) {
+    return 99;
+  } // 3
+
+
+  if (keyCode == 52 || keyCode == 100) {
+    return 100;
+  } // 4
+
+
+  if (keyCode == 53 || keyCode == 101) {
+    return 101;
+  } // 5
+
+
+  if (keyCode == 54 || keyCode == 102) {
+    return 102;
+  } // 6
+
+
+  if (isShift && keyCode == 55 || keyCode == 191 || keyCode == 111) {
+    return 111;
+  } // / devide
+
+
+  if (keyCode == 55 || keyCode == 103) {
+    return 103;
+  } // 7
+
+
+  if (!isShift && keyCode == 56 || keyCode == 104) {
+    return 104;
+  } // 8
+
+
+  if (keyCode == 57 || keyCode == 105) {
+    return 105;
+  } // 9
+
+
+  if (isShift && keyCode == 56 || keyCode == 221 || keyCode == 106) {
+    return 106;
+  } // * multiply
+
+
+  if (keyCode == 187 || keyCode == 107 || keyCode == 171) {
+    return 107;
+  } // + add
+
+
+  if (keyCode == 189 || keyCode == 109) {
+    return 109;
+  } // - subtract
+
+
+  if (keyCode == 190 || keyCode == 110) {
+    return 190;
+  } // .
+
+
+  if (keyCode == 46 || keyCode == 8 || keyCode == 12) {
+    return 8;
+  } // delete key clear
+
+
+  if (isShift && keyCode == 48 || keyCode == 13) {
+    return 13;
+  } // return key  =
+
+
+  return false;
+}; //save layout settings to local storage
+
+
+function saveToLocalStorage(type, value) {
+  localStorage.setItem(type, value);
+}
+/* detect user settings or set default layout
+apply style and size
+implement loader function */
+
+
+$(function () {
+  var style = localStorage.getItem('style') || 'dark';
+  var size = localStorage.getItem('size') || 'regular';
+  var adv = localStorage.getItem('adv') || false;
+  var his = localStorage.getItem('his') || false;
+  $('body').addClass(style + ' ' + size);
+  $('.styleSwitch[data-style=' + style + ']').addClass('active');
+  $('.sizeSwitch[data-style=' + size + ']').addClass('active');
+  $('#loader').delay(500).fadeOut(500, function () {
+    if (adv === 'true') $('.toggle:eq(1)').click();
+    if (his === 'true') $('.toggle:eq(2)').click();
+  });
+  $('.styleSwitch').on('click', function (e) {
+    e.preventDefault();
+    $('.styleSwitch').removeClass('active');
+    $(this).addClass('active');
+    style = $(this).attr('data-style');
+    size = $('.sizeSwitch.active').attr('data-style');
+    $('body').attr('class', '').addClass(style + ' ' + size);
+    saveToLocalStorage('style', style);
+  });
+  $('.sizeSwitch').on('click', function (e) {
+    e.preventDefault();
+    $('.sizeSwitch').removeClass('active');
+    $(this).addClass('active');
+    size = $(this).attr('data-style');
+    style = $('.styleSwitch.active').attr('data-style');
+    $('body').attr('class', '').addClass(size + ' ' + style);
+    saveToLocalStorage('size', size);
+  });
+  $('a.toggle').on('click', function (e) {
+    e.preventDefault();
+    var item = $(this);
+    item.blur();
+    item.parent().next().slideToggle(function () {
+      if (item.text() != '') {
+        saveToLocalStorage(item.text(), $(this).is(':visible'));
+      }
+    });
+    item.find('i').toggleClass('rotate');
+  }); //theme picker visibilty
+
+  $(document).mousedown(function (e) {
+    var clicked = $(e.target); // make clicked element jQuery element
+
+    if (!clicked.is('#themePicker') && !clicked.parents().is('#themePicker') && !clicked.parents().is('#settings')) {
+      if ($('#themePicker').is(':visible')) {
+        $('#themePicker').slideUp();
+        $('#settings').find('i').toggleClass('rotate');
+      }
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./src/app.scss":
+/*!**********************!*\
+  !*** ./src/app.scss ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ })
+
+},
+/******/ __webpack_require__ => { // webpackRuntimeModules
+/******/ "use strict";
+/******/ 
+/******/ var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
+/******/ __webpack_require__.O(0, ["css/app","/js/vendor"], () => (__webpack_exec__("./src/app.js"), __webpack_exec__("./src/app.scss")));
+/******/ var __webpack_exports__ = __webpack_require__.O();
+/******/ }
+]);

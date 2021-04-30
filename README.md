@@ -7,11 +7,11 @@ A JavaScript calculator
 
 Clone the repository
 ```
-git clone git@gitlab.web.fh-kufstein.ac.at:gunharth/calculator.git
+git clone git@github.com:gunharth/javascript-calculator.git
 ````
 cd into the directory
 ```
-cd calculator
+cd javascript-calculator
 ````
 Install all dependencies. This also installs all dependencies for web and api
 ```

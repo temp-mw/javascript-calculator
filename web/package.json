@@ -19,12 +19,12 @@
   "devDependencies": {
     "http-server": "^0.12.3",
     "jquery": "^3.6.0",
-    "laravel-mix": "^6.0.18",
+    "laravel-mix": "^6.0.39",
     "normalize-scss": "^7.0.1",
-    "resolve-url-loader": "^3.1.2",
-    "sass": "^1.32.12",
-    "sass-loader": "^11.0.1",
-    "webpack-livereload-plugin": "^3.0.1"
+    "resolve-url-loader": "^3.1.4",
+    "sass": "^1.44.0",
+    "sass-loader": "^11.1.1",
+    "webpack-livereload-plugin": "^3.0.2"
   },
   "main": "webpack.mix.js",
   "repository": {

@@ -19,7 +19,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^6.0.2"
+    "concurrently": "^6.4.0"
   },
   "main": "index.js",
   "repository": {

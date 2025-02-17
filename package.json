@@ -27,6 +27,7 @@
     "url": "git@gitlab.web.fh-kufstein.ac.at:gunharth/calculator.git"
   },
   "dependencies": {
+    "@middleware.io/node-apm": "^2.1.0",
     "cors": "^2.8.5"
   }
 }

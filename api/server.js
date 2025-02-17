@@ -11,6 +11,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
+const tracker = require('@middleware.io/node-apm');
+tracker.track({
+    "git_commit_sha": "a6c57ea13bf88f885951fc20114bbf558c0b691e",
+    "git_repository_url": "https://github.com/middlewareio/node-apm_URL",
+});
 
 /* calculates the operations
 uses decimal.js and
@@ -47,6 +52,16 @@ function nodeActions(data) {
     });
     return data;
 }
+
+app.get('/error', function (req, res) {
+    console.log("error......")
+    try{
+        throw new Error('oh error!');
+    }catch (e) {
+        tracker.errorRecord(e)
+    }
+    res.status(500).send("wrong");
+});
 
 app.post('/', (req, res) => res.json(calculate(req.body.n1, req.body.operator, req.body.n2, nodeActions)));
 

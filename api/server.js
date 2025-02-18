@@ -21,7 +21,7 @@ const calculate = (n1, operator, n2 = 0, callback) => {
     n1 = new Decimal(n1);
     n2 = new Decimal(n2);
 
-    // operators
+    // operators1111
     if (operator === 'add') return callback({ result: n1.plus(n2).toNumber(), calc: `${n1} + ${n2}` });
     if (operator === 'subtract') return callback({ result: n1.sub(n2).toNumber(), calc: `${n1} - ${n2}` });
     if (operator === 'multiply') return callback({ result: n1.mul(n2).toNumber(), calc: `${n1} * ${n2}` });

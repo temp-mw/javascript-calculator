@@ -12,10 +12,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.options('*', cors());
 const tracker = require('@middleware.io/node-apm');
-tracker.track({
-    "git_commit_sha": "ac4cb8d2c54640fabe039b83433a8484609c829c",
-    "git_repository_url": "https://github.com/temp-mw/javascript-calculator",
-});
 
 /* calculates the operations
 uses decimal.js and

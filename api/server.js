@@ -62,6 +62,72 @@ app.get('/error', function (req, res) {
     res.status(500).send("wrong");
 });
 
+app.get('/reference-error', (req, res) => {
+    try {
+        let x = nonexistentVar;
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(500).send("Reference Error occurred");
+    }
+});
+
+app.get('/zero-division-error', (req, res) => {
+    try {
+        let x = 10 / 0;
+        if (!isFinite(x)) throw new Error("Zero Division Error");
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(500).send("Zero Division Error occurred");
+    }
+});
+
+app.get('/type-error', (req, res) => {
+    try {
+        null.f();
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(500).send("Type Error occurred");
+    }
+});
+
+app.get('/out-of-memory', (req, res) => {
+    try {
+        let arr = [];
+        while (true) arr.push(1);
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(500).send("Out of Memory Error occurred");
+    }
+});
+
+app.get('/http-exception', (req, res) => {
+    try {
+        fetch('https://invalid.url').then(response => response.json());
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(500).send("HTTP Request Exception occurred");
+    }
+});
+
+app.get('/handled-exception', (req, res) => {
+    try {
+        throw new Error("Handled Exception");
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(200).send("Handled Exception captured successfully");
+    }
+});
+
+app.get('/key-error', (req, res) => {
+    try {
+        let obj = {};
+        let value = obj.undefinedKey.prop;
+    } catch (e) {
+        tracker.errorRecord(e);
+        res.status(500).send("Key Error occurred");
+    }
+});
+
 // app.get("/debug-sentry", function mainHandler(req, res) {
 //     throw new Error("My first Sentry error!");
 // });

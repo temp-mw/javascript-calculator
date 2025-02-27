@@ -4,7 +4,7 @@
   "description": "A nodejs calculator api",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon --require ./../instrumentation.js server.js"
+    "start": "nodemon --require ./instrumentation1.js server.js"
   },
   "keywords": [
     "nodejs",

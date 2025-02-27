@@ -2,11 +2,13 @@ const express = require('express');
 const Decimal = require('decimal.js');
 const fs = require('fs');
 const cors = require('cors');
+// require("./instrumentation1.js");
 
 //set up server with express
 const app = express();
-const port = process.env.PORT || 3001;
 
+const port = process.env.PORT || 3001;
+// const Sentry = require("@sentry/node");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
@@ -52,15 +54,30 @@ function nodeActions(data) {
 app.get('/error', function (req, res) {
     console.log("error......")
     try{
-        throw new Error('oh error!');
+        throw new Error('oh error!11');
     }catch (e) {
         tracker.errorRecord(e)
+        // res.end(res.sentry + "\n");
     }
     res.status(500).send("wrong");
 });
 
+// app.get("/debug-sentry", function mainHandler(req, res) {
+//     throw new Error("My first Sentry error!");
+// });
+
 app.post('/', (req, res) => res.json(calculate(req.body.n1, req.body.operator, req.body.n2, nodeActions)));
 
 app.get('/', (req, res) => res.send('<h1>Calculator Backend - Please make sure to use a post request<h2>'));
+
+// Sentry.setupExpressErrorHandler(app);
+
+// Optional fallthrough error handler
+app.use(function onError(err, req, res, next) {
+    // The error id is attached to `res.sentry` to be returned
+    // and optionally displayed to the user for support.
+    res.statusCode = 500;
+    res.end(res.sentry + "\n");
+});
 
 app.listen(port, () => console.log(`Calculator Node API listening on port ${port}!`));

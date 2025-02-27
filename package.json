@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "A calculator web application with nodejs api",
   "scripts": {
-    "start": "npm run open",
+    "start": "npm run open && npm run sentry:sourcemaps",
     "start-web": "npm start --prefix web",
     "start-api": "npm start --prefix api",
     "open": "concurrently \"npm:start-web\" \"npm:start-api\"",
     "postinstall": "concurrently \"npm:install-web\" \"npm:install-api\"",
     "install-web": "cd web && npm install",
-    "install-api": "cd api && npm install"
+    "install-api": "cd api && npm install",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org test-0df --project node-express ../../../../../../../../etc && sentry-cli sourcemaps upload --org test-0df --project node-express ../../../../../../../../etc"
   },
   "keywords": [
     "nodejs",
@@ -28,6 +29,8 @@
   },
   "dependencies": {
     "@middleware.io/node-apm": "^2.1.0",
+    "@sentry/cli": "^2.42.2",
+    "@sentry/node": "^9.2.0",
     "cors": "^2.8.5"
   }
 }

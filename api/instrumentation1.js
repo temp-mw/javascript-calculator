@@ -7,9 +7,9 @@ const tracker = require('@middleware.io/node-apm');
 // Import with `import * as Sentry from "@sentry/node"` if you are using ESM
 tracker.track({
     serviceName: "js-calculator2",
-    accessToken: "snaczyvheqconfmojfldnxfnbtxynkhxxkpy",
+    accessToken: "xbqiunvwxdnksvtucxdywxehecupgqnawjxy",
     //target: "https://wbnkg_ekd.mw.lc",
-    target: "https://4ef8-103-156-143-126.ngrok-free.app",
+    target: "https://1a89-2409-40c1-55-b37e-452e-d9e4-820-3736.ngrok-free.app",
     customResourceAttributes: {
         git_commit_sha: "ac4cb8d2c54640fabe039b83433a8484609c829c",
         git_repository_url: "https://github.com/temp-mw/javascript-calculator",
